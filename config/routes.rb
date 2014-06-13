@@ -1,5 +1,5 @@
 Ads::Application.routes.draw do
-  get "static_page/home"
+  root "static_page#home"
   get "static_page/about"
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
