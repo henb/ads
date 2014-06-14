@@ -1,6 +1,6 @@
 class MyadsController < ApplicationController
   before_action :set_myad, only: [:show, :edit, :update, :destroy]
-
+  before_action :get_type, only: [:new,:create,:edit]
   # GET /myads
   # GET /myads.json
   def index
@@ -15,7 +15,6 @@ class MyadsController < ApplicationController
   # GET /myads/new
   def new
     @myad = Myad.new
-    @typeads = Typead.all
   end
 
   # GET /myads/1/edit
@@ -32,7 +31,6 @@ class MyadsController < ApplicationController
         format.html { redirect_to @myad, notice: 'Myad was successfully created.' }
         format.json { render action: 'show', status: :created, location: @myad }
       else
-        @typeads = Typead.all
         format.html { render action: 'new' }
         format.json { render json: @myad.errors, status: :unprocessable_entity }
       end
@@ -69,6 +67,9 @@ class MyadsController < ApplicationController
       @myad = Myad.find(params[:id])
     end
 
+    def get_type
+        @typeads = Typead.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def myad_params
       params.require(:myad).permit(:title, :description,:typead_id)
