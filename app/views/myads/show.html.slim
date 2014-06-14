@@ -1,11 +1,12 @@
-h1
+p#notice = notice
+
+p
+  strong Title:
   = @myad.title
 p
-  span class="label label-#{ label_state(@myad.state) }"
-    = @myad.state_name.capitalize
-p
+  strong Description:
   = @myad.description
 
 = link_to 'Edit', edit_myad_path(@myad)
-|  | 
+'|
 = link_to 'Back', myads_path

@@ -1,25 +1,24 @@
 h1 Listing myads
 
-table.table
+table
   thead
     tr
-      th State
       th Title
+      th Description
       th Type
+      th
       th
 
   tbody
     - @myads.each do |myad|
       tr
-        td 
-          span class="label label-#{ label_state(myad.state) }" 
-            = myad.state_name.capitalize           
         td = myad.title
+        td = myad.description
         td = myad.typead.name
-        td 
-         
-          = link_to 'Show', myad, class:"btn btn-default"
-          = link_to 'Edit', edit_myad_path(myad), class:"btn btn-default"
-          = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-default"
+        td = link_to 'Show', myad
+        td = link_to 'Edit', edit_myad_path(myad)
+        td = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete
+
 br
+
 = link_to 'New Myad', new_myad_path

@@ -2,18 +2,7 @@ Ads::Application.routes.draw do
 
   resources :typeads
 
-  resources :myads do 
-    member do
-      post 'fresh'
-      post 'reject'
-      post 'fresh'
-      post 'approve'
-      post 'publish'
-      post 'archive'
-      post 'ban'
-      post 'draft'
-    end
-  end
+  resources :myads
 
   root "static_page#home"
   get "static_page/about"
