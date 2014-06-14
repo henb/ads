@@ -15,6 +15,7 @@ class MyadsController < ApplicationController
   # GET /myads/new
   def new
     @myad = Myad.new
+    @typeads = Typead.all
   end
 
   # GET /myads/1/edit
@@ -31,6 +32,7 @@ class MyadsController < ApplicationController
         format.html { redirect_to @myad, notice: 'Myad was successfully created.' }
         format.json { render action: 'show', status: :created, location: @myad }
       else
+        @typeads = Typead.all
         format.html { render action: 'new' }
         format.json { render json: @myad.errors, status: :unprocessable_entity }
       end
@@ -69,6 +71,6 @@ class MyadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def myad_params
-      params.require(:myad).permit(:title, :description)
+      params.require(:myad).permit(:title, :description,:typead_id)
     end
 end
