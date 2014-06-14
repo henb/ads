@@ -9,4 +9,5 @@ html
   = render "layouts/navbar"
 
   .container.main
+    = params if Rails.env == "development"
     == yield
