@@ -14,7 +14,20 @@
 
 @import "bootstrap";
 
-  .container.main{
-	margin-top:50px;
+.container.main{
+  margin-top:50px;
+}
 
+a.btn-archive{
+  &:hover { 
+    background:#DF7401;
+    color:white; 
+  }
+  background:#B45F04;
+  color:white;
+}
+
+.label-archive{
+  background:#DF7401;
+  color:white;
 }
