@@ -1,10 +1,11 @@
 class TypeadsController < ApplicationController
-  before_action :set_typead, only: [:show, :edit, :update, :destroy]
+  before_action :set_typead, only: [:show, :destroy]
 
   # GET /typeads
   # GET /typeads.json
   def index
     @typeads = Typead.all
+    @ads = Myad.all
   end
 
   # GET /typeads/1
@@ -15,10 +16,6 @@ class TypeadsController < ApplicationController
   # GET /typeads/new
   def new
     @typead = Typead.new
-  end
-
-  # GET /typeads/1/edit
-  def edit
   end
 
   # POST /typeads
@@ -37,27 +34,17 @@ class TypeadsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /typeads/1
-  # PATCH/PUT /typeads/1.json
-  def update
-    respond_to do |format|
-      if @typead.update(typead_params)
-        format.html { redirect_to @typead, notice: 'Typead was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @typead.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /typeads/1
   # DELETE /typeads/1.json
   def destroy
-    @typead.destroy
     respond_to do |format|
-      format.html { redirect_to typeads_url }
-      format.json { head :no_content }
+      if @typead.myads.size.zero?
+        @typead.destroy
+        format.html { redirect_to typeads_url }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @typead, notice: 'Typead not empty!' }
+      end
     end
   end
 
@@ -69,6 +56,6 @@ class TypeadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def typead_params
-      params.require(:typead).permit(:name, :text)
+      params.require(:typead).permit(:name, :description)
     end
 end
