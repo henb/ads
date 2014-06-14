@@ -4,9 +4,9 @@ p
   strong Name:
   = @typead.name
 p
-  strong Text:
-  = @typead.text
+  strong Description:
+  = @typead.description
+p
+  = link_to 'Destroy', @typead, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-sm btn-danger"
 
-= link_to 'Edit', edit_typead_path(@typead)
-'|
 = link_to 'Back', typeads_path
