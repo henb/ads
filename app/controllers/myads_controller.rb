@@ -1,6 +1,10 @@
 class MyadsController < ApplicationController
-  before_action :set_myad, only: [:show, :edit, :update, :destroy]
+  before_action :set_myad, only: [:show,   :edit,  :update, :destroy, :state,
+                                  :fresh,  :reject,:fresh,  :approve, :publish,
+                                  :archive,:ban,   :draft]  
   before_action :get_type, only: [:new,:create,:edit]
+
+  include EventsForMyad
   # GET /myads
   # GET /myads.json
   def index
@@ -60,6 +64,18 @@ class MyadsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  #events myads
+  # def state
+  #   event = params[:event].to_s.to_sym
+  #   if @myad.state_paths.events.include? event
+  #       @myad.send(event)
+  #   end
+    
+  #   respond_to do |format|
+  #     format.html { redirect_to myads_path }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -70,6 +86,7 @@ class MyadsController < ApplicationController
     def get_type
         @typeads = Typead.all
     end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def myad_params
       params.require(:myad).permit(:title, :description,:typead_id)

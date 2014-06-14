@@ -18,10 +18,6 @@ class Myad < ActiveRecord::Base
       transition :drafting => :freshing   
     end
 
-    event :draft do
-      transition :freshing => :drafting   
-    end
-
     event :reject do
       transition :freshing => :rejected   
     end
@@ -38,10 +34,13 @@ class Myad < ActiveRecord::Base
       transition :published => :archives   
     end
 
-	event :ban do
+    event :ban do
       transition :freshing => :banned   
     end
-
+    
+    event :draft do
+      transition :archives => :drafting   
+    end
   end
 
 end

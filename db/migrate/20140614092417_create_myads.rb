@@ -8,7 +8,6 @@ class CreateMyads < ActiveRecord::Migration
       #state_machine
       t.integer :state
       t.index :state
-      t.text :admin_message
 
       t.timestamps
     end
