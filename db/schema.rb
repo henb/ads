@@ -14,16 +14,20 @@
 ActiveRecord::Schema.define(version: 20140614092453) do
 
   create_table "myads", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "typead_id"
+    t.string   "title",         default: "", null: false
+    t.text     "description",   default: "", null: false
+    t.integer  "typead_id",                  null: false
+    t.integer  "state"
+    t.text     "admin_message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "myads", ["state"], name: "index_myads_on_state"
+
   create_table "typeads", force: true do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description", default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
