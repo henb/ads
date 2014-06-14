@@ -1,4 +1,9 @@
 Ads::Application.routes.draw do
+
+  resources :typeads
+
+  resources :myads
+
   root "static_page#home"
   get "static_page/about"
   devise_for :users

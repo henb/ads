@@ -1,0 +1,23 @@
+h1 Listing myads
+
+table
+  thead
+    tr
+      th Title
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @myads.each do |myad|
+      tr
+        td = myad.title
+        td = myad.description
+        td = link_to 'Show', myad
+        td = link_to 'Edit', edit_myad_path(myad)
+        td = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Myad', new_myad_path

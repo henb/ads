@@ -16,6 +16,7 @@ gem 'html2slim'
 
 gem 'bootstrap-sass', '~> 3.1.1'
 
+gem 'state_machine'
 group :doc do
   gem 'sdoc', require: false
 end

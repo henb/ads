@@ -1,0 +1,23 @@
+h1 Listing typeads
+
+table
+  thead
+    tr
+      th Name
+      th Text
+      th
+      th
+      th
+
+  tbody
+    - @typeads.each do |typead|
+      tr
+        td = typead.name
+        td = typead.text
+        td = link_to 'Show', typead
+        td = link_to 'Edit', edit_typead_path(typead)
+        td = link_to 'Destroy', typead, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Typead', new_typead_path

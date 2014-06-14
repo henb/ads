@@ -1,0 +1,2 @@
+module MyadsHelper
+end
