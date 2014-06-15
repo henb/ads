@@ -2,7 +2,11 @@ Ads::Application.routes.draw do
 
   resources :typeads
 
-  resources :myads
+  resources :myads do
+    member do
+      post "event"
+    end
+  end
 
   root "static_page#home"
   get "static_page/about"

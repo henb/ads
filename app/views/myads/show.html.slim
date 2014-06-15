@@ -1,11 +1,21 @@
 p#notice = notice
 
 p
-  strong Title:
-  = @myad.title
+  h1
+    = @myad.title
+  label class="label label-#{label_state(@myad.state)}"
+    = @myad.state_name.capitalize
+
 p
-  strong Description:
   = @myad.description
+
+
+p
+  - state_bool(@myad.state_paths.events).each do |state|
+    - next unless @myad.send(state.last) 
+    = link_to state.first.capitalize, event_myad_path(@myad,event:state.first), :method => :event, class:"btn btn-#{label_event(state.first)}"
+
+
 
 = link_to 'Edit', edit_myad_path(@myad)
 '|

@@ -1,24 +1,47 @@
 h1 Listing myads
 
-table
+hr
+ul.nav.nav-pills
+  li
+    = link_to  "All", "#" 
+  li
+    = link_to  "Drafting", "#"
+  li
+    = link_to  "Freshing", "#"
+  li
+    = link_to  "Rejected", "#"
+  li
+    = link_to  "Published", "#"
+  li
+    = link_to  "Approved", "#"
+  li
+    = link_to  "Archives", "#"
+  li
+    = link_to  "Banned", "#"
+hr
+
+table.table
   thead
     tr
       th Title
       th Description
       th Type
-      th
-      th
+      th Actions
 
   tbody
     - @myads.each do |myad|
       tr
         td = myad.title
-        td = myad.description
+        td 
+          label class="label label-#{label_state(myad.state)}"
+            = myad.state_name.capitalize
         td = myad.typead.name
-        td = link_to 'Show', myad
-        td = link_to 'Edit', edit_myad_path(myad)
-        td = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td
+           = link_to 'Show', myad, class:"label label-default"
+           = link_to 'Edit', edit_myad_path(myad), class:"label label-default"
+           = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"label label-default"
 
 br
 
-= link_to 'New Myad', new_myad_path
+
+= link_to 'New Myad', new_myad_path, class:"btn btn-primary"
