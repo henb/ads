@@ -4,7 +4,13 @@ class MyadsController < ApplicationController
   # GET /myads
   # GET /myads.json
   def index
-    @myads = Myad.all
+
+    if params[:state]
+      @myads = Myad.where(state: 0)
+    else
+      @myads = Myad.all
+    end
+
   end
 
   # GET /myads/1

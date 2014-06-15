@@ -31,3 +31,18 @@ a.btn-archive{
   background:#DF7401;
   color:white;
 }
+
+
+a.btn-none{
+  &:hover { 
+    background:#A901DB;
+    color:white; 
+  }
+  background:#BF00FF;
+  color:white;
+}
+
+.label-none{
+  background:#A901DB;
+  color:white;
+}

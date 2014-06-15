@@ -6,7 +6,15 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  protected  
+  def events_ad
+    Myad.state_machine.events.map &:name
+  end
+
+  def states_ad
+    Myad.state_machine.states.map &:name
+  end
+
+  protected
     def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u| 
     	u.permit(:first_name,
@@ -19,4 +27,5 @@ class ApplicationController < ActionController::Base
     		      :remember_created_at) 
       end
     end
+
 end

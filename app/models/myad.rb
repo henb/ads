@@ -15,6 +15,9 @@ class Myad < ActiveRecord::Base
     state :archives,   value: 5
     state :banned,    value: 6
 
+    event :draft do
+      transition [:rejected,:archives] => :drafting   
+    end
     event :fresh do
       transition :drafting => :freshing   
     end
@@ -38,11 +41,6 @@ class Myad < ActiveRecord::Base
     event :ban do
       transition :freshing => :banned   
     end
-
-    event :draft do
-      transition [:rejected,:archives] => :drafting   
-    end
-
 
   end
 
