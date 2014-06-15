@@ -18,7 +18,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'state_machine'
 gem 'enumerize'
-
+gem 'whenever', :require => false
 
 group :doc do
   gem 'sdoc', require: false

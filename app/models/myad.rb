@@ -53,5 +53,8 @@ class Myad < ActiveRecord::Base
 
   end
 
-
+  def self.update_ads
+     ads = Myad.with_state(:approved)
+     ads.each {|ad| ad.publish }
+  end
 end
