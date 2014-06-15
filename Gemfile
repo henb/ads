@@ -20,6 +20,7 @@ gem 'state_machine'
 gem 'enumerize'
 gem 'whenever'
 
+
 group :doc do
   gem 'sdoc', require: false
 end

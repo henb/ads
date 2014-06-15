@@ -6,7 +6,7 @@ class MyadsController < ApplicationController
   def index
 
     if params[:state]
-      @myads = Myad.where(state: 0)
+      @myads = Myad.where(state: params[:state])
     else
       @myads = Myad.all
     end
