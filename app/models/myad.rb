@@ -1,5 +1,6 @@
 class Myad < ActiveRecord::Base
   belongs_to :typead
+  default_scope -> { order('updated_at DESC') }
 
   validates :typead_id, :presence => true
   validates :title, :presence => true, length: { minimum:10 }
@@ -54,7 +55,14 @@ class Myad < ActiveRecord::Base
   end
 
   def self.update_ads
-     ads = Myad.with_state(:approved)
-     ads.each {|ad| ad.publish }
+    ads = Myad.with_state(:approved)
+    ads.each {|ad| ad.publish }
+  end
+
+  def self.updete_published
+    ads = Myad.with_state(:published)
+    valide = proc { |ad| ad.updated_at + 3.day - Time.new > 0 ? true : false }
+    
+    ads.each { |ad| ad.archive unless valide.call ad }
   end
 end
