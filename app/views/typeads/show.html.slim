@@ -1,12 +1,19 @@
 p#notice = notice
 
-p
-  strong Name:
+h1
   = @typead.name
 p
-  strong Description:
   = @typead.description
+
+hr
+
+- if can?(:destroy, @typead)
+    p
+      = link_to 'Destroy', @typead, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-sm btn-danger"
+ 
 p
-  = link_to 'Destroy', @typead, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-sm btn-danger"
+
+  = render partial:"myads/table_myads", locals:{myads: @ads}
+
 
 = link_to 'Back', typeads_path

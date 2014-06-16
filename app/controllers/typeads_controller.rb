@@ -1,16 +1,17 @@
 class TypeadsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_typead, only: [:show, :destroy]
 
   # GET /typeads
   # GET /typeads.json
   def index
     @typeads = Typead.all
-    @ads = Myad.all
   end
 
   # GET /typeads/1
   # GET /typeads/1.json
   def show
+    @ads = @typead.myads.where(state:states_ad.index(:published)).paginate(page: params[:page], per_page: 3)
   end
 
   # GET /typeads/new

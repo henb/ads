@@ -1,5 +1,7 @@
 class Myad < ActiveRecord::Base
   belongs_to :typead
+  belongs_to :user
+
   default_scope -> { order('updated_at DESC') }
 
   validates :typead_id, :presence => true
@@ -44,12 +46,12 @@ class Myad < ActiveRecord::Base
 
   end
 
-  def admin_events
-
+  def self.admin_events
+    [:reject,:approve,:ban]
   end
 
-  def user_events
-
+  def self.user_events
+    [:draft,:fresh]
   end
 
   def self.update_ads

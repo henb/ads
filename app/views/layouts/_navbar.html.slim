@@ -10,10 +10,14 @@
     .navbar-collapse.collapse
       ul.nav.navbar-nav
         li
-          a href="#" Types ads
+          = link_to "Types ads", typeads_path
       ul.nav.navbar-nav.navbar-right
         li
-          a href="#" Create ADS
+          - if can? :create, Myad
+            - if !(current_user && current_user.role == "admin")
+              = link_to "My ADS", myads_path
+        li
+          = link_to "ADS", myads_path(published:true)
         - if user_signed_in? 
           li.dropdown
             a.dropdown-toggle data-toggle="dropdown" href="#" 

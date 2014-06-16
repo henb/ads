@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140615111432) do
+ActiveRecord::Schema.define(version: 20140615220636) do
 
   create_table "myads", force: true do |t|
     t.string   "title",       default: "", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140615111432) do
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "myads", ["state"], name: "index_myads_on_state"

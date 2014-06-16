@@ -1,8 +1,7 @@
-h1.text-center Listing typeads
+h1.text-center Listing type for ads
 p.text-center
   - @typeads.each do |typead|
-    = link_to typead.name, typead, class: "btn btn-lg btn-primary typead"
-p  
-  #render ads
+  	  = link_to typead.name, typead, class: "btn btn-lg btn-primary typead"
 
-= link_to 'New Typead', new_typead_path
+- if can?(:create, Typead)
+  = link_to 'New Typead', new_typead_path

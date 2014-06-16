@@ -1,16 +1,13 @@
 class MyadsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_myad, only: [:show, :edit, :update, :destroy,:event]
   before_action :get_type, only: [:new,:create,:edit]
+  before_action :params_hash_for_where, only: :index
   # GET /myads
   # GET /myads.json
+
   def index
-
-    if params[:state]
-      @myads = Myad.where(state: params[:state])
-    else
-      @myads = Myad.all
-    end
-
+    @myads = Myad.where(@hash_where).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /myads/1
@@ -27,10 +24,11 @@ class MyadsController < ApplicationController
   def edit
   end
 
-  # POST /myads
+  # POST /myads.
   # POST /myads.json
   def create
     @myad = Myad.new(myad_params)
+    @myad.user = current_user 
 
     respond_to do |format|
       if @myad.save
@@ -95,5 +93,31 @@ class MyadsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def myad_params
       params.require(:myad).permit(:title, :description,:typead_id)
+    end
+
+    def params_hash_for_where
+      @hash_where = {}
+
+      unless current_user
+        @hash_where[:state] =  states_ad.index(:published)
+        params[:published]=true
+        return
+      end 
+
+
+      if current_user.role == "admin"
+        @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
+        return nil
+      end
+
+      unless params[:published]
+        @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
+        @hash_where[:user] = current_user if current_user
+      else
+        @hash_where[:state] =  states_ad.index(:published)
+        params[:published] = true 
+      end
+
+
     end
 end

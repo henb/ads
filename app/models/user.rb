@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
   extend Enumerize
+  before_save { self.role = "user" if role!="admin"}
+
+  has_many :myads
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -7,4 +11,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   enumerize :role, in: [:guest, :user, :admin], default: :guest
+
 end

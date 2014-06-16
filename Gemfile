@@ -19,7 +19,9 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'state_machine'
 gem 'enumerize'
 gem 'whenever'
-
+gem 'cancan'
+gem 'will_paginate'
+gem 'faker'
 
 group :doc do
   gem 'sdoc', require: false

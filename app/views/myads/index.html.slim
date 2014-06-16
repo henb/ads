@@ -1,34 +1,22 @@
-h1 Listing myads
+h1 Listing ads
 
-hr
-ul.nav.nav-pills
-  li = link_to  "All", myads_path
-  - states_ad.each do |state_name|
-    li = link_to state_name.capitalize, myads_path(state:state_name)
-hr
 
-table.table
-  thead
-    tr
-      th Title
-      th Description
-      th Type
-      th Actions
+- unless published_only
+  hr
+    ul.nav.nav-pills
+      li = link_to  "All", myads_path
+      - if admin?
+        - admin_states_ad.each do |state_name|
+          li = link_to state_name.capitalize, myads_path(state:state_name)
+      - else
+        - states_ad.each do |state_name|
+          li = link_to state_name.capitalize, myads_path(state:state_name)
+  hr
 
-  tbody
-    - @myads.each do |myad|
-      tr
-        td = myad.title
-        td 
-          label class="label label-#{label_state(myad.state)}"
-            = myad.state_name.capitalize
-        td = myad.typead.name
-        td
-           = link_to 'Show', myad, class:"label label-default"
-           = link_to 'Edit', edit_myad_path(myad), class:"label label-default"
-           = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"label label-default"
+= render partial:"myads/table_myads", locals:{myads: @myads}
 
 br
 
-
-= link_to 'New Myad', new_myad_path, class:"btn btn-primary"
+- if can? :create, Myad
+  - unless published_only
+    = link_to'New Myad', new_myad_path, class:"btn btn-primary"
