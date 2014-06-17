@@ -12,8 +12,7 @@ hr
         li = link_to state_name.capitalize, myads_path(state:state_name)
 hr
 
-= render partial:"myads/table_myads", locals:{myads: @myads}
-.text-center = will_paginate @myads
+= render partial:"myads/table_myads", locals:{myads: @myads,search:@search}
 
 br
 

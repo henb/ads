@@ -1,5 +1,3 @@
-p#notice = notice
-
 h1
   = @typead.name
 p
@@ -12,11 +10,6 @@ hr
       = link_to 'Destroy', @typead, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-sm btn-danger"
  
 p
+  = render partial:"myads/table_myads", locals:{myads: @myads,search:@search}
 
-  = render partial:"myads/table_myads", locals:{myads: @ads}
-
-- if @ads.size.zero?
-  p.text-center
-    strong There are no published ads.
-
-= link_to 'Back', typeads_path
+= link_to 'Back', typeads_path , class:"btn btn-primary"

@@ -12,8 +12,4 @@ p
 hr
 
 p
-  = render partial:"myads/table_myads_sort", locals:{myads: @myads,search:@search}
-  - if @search.result.size.zero?
-    .text-center
-      strong Sorry, not found.
-  .text-center = will_paginate @myads
+  = render partial:"myads/table_myads", locals:{myads: @myads,search:@search}

@@ -6,18 +6,9 @@ table.table
       th Type
       th State
       th Actions
-
-
   tbody
     - myads.each do |myad|
-      tr
         td = myad.title
         td = myad.user.email
         td = link_to(truncate(myad.typead.name,length:30), typead_path(myad.typead),class:"label type")
-        td 
-          = render partial:"myads/state_ad", locals:{ad: myad}
-        td
-          .btn-group
-          - if can? :event, myad
-            = render partial:"myads/state_action", locals:{ad: myad}
-          = render partial:"myads/standart_action", locals:{ad: myad}
+        = render partial:"myads/ad_item/index", locals:{myad: myad}

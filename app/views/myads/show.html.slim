@@ -1,5 +1,3 @@
-p#notice = notice
-
 p
   h1
     = @myad.title
@@ -17,7 +15,6 @@ p
 	    = link_to state.first.capitalize, event_myad_path(@myad,event:state.first), class:"btn btn-#{label_event(state.first)}"
 
 
-
-= link_to 'Edit', edit_myad_path(@myad)
-'|
-= link_to 'Back', myads_path
+- if can? :edit, @myad
+  = link_to 'Edit', edit_myad_path(@myad), class:"btn btn-primary"
+= link_to 'Back', myads_path, class:"btn btn-primary"

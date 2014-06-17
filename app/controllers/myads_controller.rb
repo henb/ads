@@ -8,7 +8,8 @@ class MyadsController < ApplicationController
   # GET /myads.json
 
   def index
-    @myads = Myad.where(@hash_where).paginate(page: params[:page], per_page: 10)
+    @search = Myad.search(params[:q])
+    @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /myads/1
@@ -103,16 +104,14 @@ class MyadsController < ApplicationController
     end
 
     def params_hash_for_where
-      @hash_where = {}
+       params[:q] ||= {} 
+        if admin?
+          params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
+          return nil
+        end
 
-      if admin?
-        @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
-        return nil
-      end
-
-      @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
-      @hash_where[:user] = current_user if current_user
-
+        params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
+        params[:q][:user_id_eq] = current_user.id if current_user
     end
 
     def params_q_for_published

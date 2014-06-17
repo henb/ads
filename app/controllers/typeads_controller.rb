@@ -1,7 +1,7 @@
 class TypeadsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_typead, only: [:show, :destroy]
-
+  before_action :set_typead, only: :destroy
+  before_action :set_search, only: :show
   # GET /typeads
   # GET /typeads.json
   def index
@@ -11,7 +11,8 @@ class TypeadsController < ApplicationController
   # GET /typeads/1
   # GET /typeads/1.json
   def show
-    @ads = @typead.myads.where(state:states_ad.index(:published)).paginate(page: params[:page], per_page: 3)
+    @search = Myad.search(params[:q])
+    @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /typeads/new
@@ -52,6 +53,16 @@ class TypeadsController < ApplicationController
   end
 
   private
+    def set_search
+      params[:q] ||= {}
+      params[:q][:type_id] = params[:id]  if params[:id]
+
+      if admin?
+          params[:q][:state_in] = Myad.admin_state
+      else
+          params[:q][:state_eq] = states_ad.index(:published)
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_typead
       @typead = Typead.find(params[:id])

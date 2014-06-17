@@ -1,23 +1,18 @@
 table.table
   thead
     tr
-      th Title
-      th User
-      th Type
-      th State
-      th Actions
-
-
+      th = sort_link(search, :title)
+      th = sort_link(search, :user)
+      th = sort_link(search, :typead_name)
+      th = sort_link(search, :state)
+      th = sort_link(search, :actions)
+      th = sort_link(search, :updated_at, default_order: :desc)
   tbody
     - myads.each do |myad|
       - if can?(:read, myad)
-        tr
-          td = myad.title
-          td = myad.user.email
-          td = link_to(truncate(myad.typead.name,length:30), typead_path(myad.typead),class:"label type")
-          td 
-            = render partial:"myads/state_ad", locals:{ad: myad}
-          td
-            - if can? :event, myad
-              = render partial:"myads/state_action", locals:{ad: myad}
-            = render partial:"myads/standart_action", locals:{ad: myad}
+        tr id="ad-id#{myad.id}"  
+          = render partial:"myads/ad_item/index", locals:{myad: myad}
+- if @search.result.size.zero?
+  .text-center
+    strong Sorry, not found.
+.text-center = will_paginate myads        
