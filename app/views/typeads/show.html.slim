@@ -15,5 +15,8 @@ p
 
   = render partial:"myads/table_myads", locals:{myads: @ads}
 
+- if @ads.size.zero?
+  p.text-center
+    strong There are no published ads.
 
 = link_to 'Back', typeads_path

@@ -9,6 +9,7 @@ Ads::Application.routes.draw do
 
     collection do
       get "published"
+
     end
   end
 

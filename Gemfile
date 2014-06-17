@@ -22,6 +22,7 @@ gem 'whenever'
 gem 'cancan'
 gem 'will_paginate'
 gem 'faker'
+gem 'ransack'
 
 group :doc do
   gem 'sdoc', require: false

@@ -51,3 +51,12 @@ a.btn-none{
   background:#4D9494;
   color:white;
 }
+
+.search_form{
+  @extend .form-control;
+}
+
+.sform{
+  @extend .navbar-form;
+   @extend.navbar-right;
+}

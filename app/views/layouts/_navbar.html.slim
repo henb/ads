@@ -17,9 +17,7 @@
             - if !admin?
               = link_to "My ADS", myads_path
         li
-          - if admin?
-              = link_to "ADS", myads_path
-          - else
+          - unless admin?
               = link_to "Published ADS", published_myads_path
         - if user_signed_in? 
           li.dropdown
@@ -37,6 +35,8 @@
             = link_to "Sign Up", new_user_registration_path
           li
             = link_to "Sign In", new_user_session_path
+      = search_form_for(help_for_serch_form,url:published_myads_path,class:"sform") do |f|
+        = f.search_field :title_cont, class:"search_form", placeholder:"Search..."
 
 #user_nav
   - if user_signed_in?

@@ -54,6 +54,13 @@ class Myad < ActiveRecord::Base
     [:draft,:fresh]
   end
 
+  def self.admin_state
+    [1,2,3,4,6]
+  end
+
+
+
+
   def self.update_ads
     ads = Myad.with_state(:approved)
     ads.each {|ad| ad.publish }

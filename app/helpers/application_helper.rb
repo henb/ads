@@ -25,4 +25,8 @@ module ApplicationHelper
   def admin?
     current_user && current_user.role == "admin"
   end
+
+  def help_for_serch_form
+    @search = Myad.search
+  end
 end

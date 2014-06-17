@@ -3,6 +3,7 @@ class MyadsController < ApplicationController
   before_action :set_myad, only: [:show, :edit, :update, :destroy,:event]
   before_action :get_type, only: [:new,:create,:edit]
   before_action :params_hash_for_where, only: :index
+  before_action :params_q_for_published, only: :published
   # GET /myads
   # GET /myads.json
 
@@ -80,7 +81,8 @@ class MyadsController < ApplicationController
   end
   
   def published
-    @myads = Myad.where(state:states_ad.index(:published)).paginate(page: params[:page], per_page: 10)
+    @search = Myad.search(params[:q])
+    @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   private
@@ -109,5 +111,14 @@ class MyadsController < ApplicationController
       @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
       @hash_where[:user] = current_user if current_user
 
+    end
+
+    def params_q_for_published
+     params[:q] ||= {} 
+        if admin?
+          params[:q][:state_in] = Myad.admin_state
+        else
+          params[:q][:state_eq] = states_ad.index(:published)
+        end
     end
 end
