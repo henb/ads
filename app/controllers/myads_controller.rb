@@ -32,7 +32,8 @@ class MyadsController < ApplicationController
 
     respond_to do |format|
       if @myad.save
-        format.html { redirect_to @myad, notice: 'Myad was successfully created.' }
+        flash[:success] = 'Myad was successfully created.'
+        format.html { redirect_to @myad }
         format.json { render action: 'show', status: :created, location: @myad }
       else
         format.html { render action: 'new' }
@@ -46,7 +47,8 @@ class MyadsController < ApplicationController
   def update
     respond_to do |format|
       if @myad.update(myad_params)
-        format.html { redirect_to @myad, notice: 'Myad was successfully updated.' }
+        flash[:success] = 'Myad was successfully updated.'
+        format.html { redirect_to @myad }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -67,8 +69,6 @@ class MyadsController < ApplicationController
 
   def event
     event = params[:event].to_sym
-    # if admin_events.include? event
-    # if user_events.include? event
 
     if @myad.state_paths.events.include? event   
       @myad.send(event)

@@ -26,7 +26,8 @@ class TypeadsController < ApplicationController
 
     respond_to do |format|
       if @typead.save
-        format.html { redirect_to @typead, notice: 'Typead was successfully created.' }
+        flash[:success] = 'Typead was successfully created.'
+        format.html { redirect_to @typead }
         format.json { render action: 'show', status: :created, location: @typead }
       else
         format.html { render action: 'new' }
@@ -44,7 +45,8 @@ class TypeadsController < ApplicationController
         format.html { redirect_to typeads_url }
         format.json { head :no_content }
       else
-        format.html { redirect_to @typead, notice: 'Typead not empty!' }
+        flash[:danger] = 'Typead not empty!'
+        format.html { redirect_to @typead}
       end
     end
   end
