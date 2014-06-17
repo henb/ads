@@ -55,7 +55,7 @@ class TypeadsController < ApplicationController
   private
     def set_search
       params[:q] ||= {}
-      params[:q][:type_id] = params[:id]  if params[:id]
+      params[:q][:typead_id_eq] = params[:id]  if params[:id]
 
       if admin?
           params[:q][:state_in] = Myad.admin_state
