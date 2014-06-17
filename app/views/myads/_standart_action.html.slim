@@ -1,0 +1,5 @@
+= link_to 'Show', ad, class:"label label-default"
+- if can?(:update, ad)
+  = link_to 'Edit', edit_myad_path(ad), class:"label label-default"
+- if can?(:destroy, ad)   
+  = link_to 'Destroy', ad, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"label label-default"

@@ -14,7 +14,7 @@ p
   - state_bool(@myad.state_paths.events).each do |state|
     - next unless @myad.send(state.last)
     - if can? :event, @myad
-	    = link_to state.first.capitalize, event_myad_path(@myad,event:state.first), :method => :event, class:"btn btn-#{label_event(state.first)}"
+	    = link_to state.first.capitalize, event_myad_path(@myad,event:state.first), class:"btn btn-#{label_event(state.first)}"
 
 
 

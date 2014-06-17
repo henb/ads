@@ -4,7 +4,7 @@ Ads::Application.routes.draw do
 
   resources :myads do
     member do
-      post "event"
+      get "event"
     end
 
     collection do

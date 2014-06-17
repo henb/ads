@@ -3,5 +3,6 @@ p.text-center
   - @typeads.each do |typead|
   	  = link_to typead.name, typead, class: "btn btn-lg btn-primary typead"
 
-- if can?(:create, Typead)
-  = link_to 'New Typead', new_typead_path
+.text-center
+  - if can?(:create, Typead)
+    = link_to 'Create Type for ads', new_typead_path, class:"btn btn-lg btn-success"

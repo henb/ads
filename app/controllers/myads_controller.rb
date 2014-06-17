@@ -76,8 +76,10 @@ class MyadsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to @myad }
+      format.html { redirect_to myad_path(@myad) }
+      format.js 
     end
+    
   end
   
   def published

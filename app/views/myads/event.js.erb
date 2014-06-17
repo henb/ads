@@ -1,0 +1,2 @@
+$("#state-label-id<%= @myad.id %>").empty().prepend("<%= j render partial:'myads/state_label', locals:{ad: @myad} %>");
+$("#state-action-id<%= @myad.id %>").empty().prepend("<%= j render partial:'myads/state_action_simple', locals:{ad: @myad} %>");

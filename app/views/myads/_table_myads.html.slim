@@ -16,20 +16,8 @@ table.table
           td = myad.user.email
           td = link_to(truncate(myad.typead.name,length:30), typead_path(myad.typead),class:"label type")
           td 
-            label class="label label-#{label_state(myad.state)}"
-              = myad.state_name.capitalize
+            = render partial:"myads/state_ad", locals:{ad: myad}
           td
             - if can? :event, myad
-              .btn-group
-                label.label.label-default.dropdown-toggle data-toggle="dropdown" type="button" 
-                  | State
-                  span.caret
-                ul.dropdown-menu role="menu" 
-                  - myad.state_events.each do |state|
-                    li
-                      = link_to state.capitalize, event_myad_path(myad,event:state), :method => :event
-            = link_to 'Show', myad, class:"label label-default"
-            - if can?(:update, myad)
-              = link_to 'Edit', edit_myad_path(myad), class:"label label-default"
-            - if can?(:destroy, myad)   
-              = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"label label-default"
+              = render partial:"myads/state_action", locals:{ad: myad}
+            = render partial:"myads/standart_action", locals:{ad: myad}

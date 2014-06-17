@@ -1,0 +1,9 @@
+- if can? :event, ad
+  .btn-group.state-group
+    .label.label.label-default.dropdown-toggle data-toggle="dropdown" type="button"
+      | State
+      span.caret
+    ul.dropdown-menu role="menu"
+      - ad.state_events.each do |state|
+       li
+        = link_to state.capitalize, event_myad_path(ad,event:state), remote: true
