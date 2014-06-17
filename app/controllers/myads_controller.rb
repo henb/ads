@@ -106,7 +106,11 @@ class MyadsController < ApplicationController
     def params_hash_for_where
        params[:q] ||= {} 
         if admin?
-          params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
+          if params[:state]
+            params[:q][:state_eq] = states_ad.index(params[:state].to_sym) 
+          else
+           params[:q][:state_in] = Myad.admin_state
+          end
           return nil
         end
 
