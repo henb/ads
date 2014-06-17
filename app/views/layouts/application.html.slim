@@ -9,5 +9,6 @@ html
   = render "layouts/navbar"
 
   .container.main
+    = render "layouts/flash"
     = params if Rails.env == "development"
     == yield
