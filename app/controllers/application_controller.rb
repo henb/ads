@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
 
   # Catch all CanCan errors and alert the user of the exception
   rescue_from CanCan::AccessDenied do | exception |
-    redirect_to myads_path, alert: exception.message
+      redirect_to root_path
+      flash[:info] = exception.message
   end
 
   def events_ad
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= Ability.new(current_user)
+  end
+
+  def admin?
+    current_user && current_user.role == "admin"
   end
 
   protected

@@ -6,6 +6,10 @@ Ads::Application.routes.draw do
     member do
       post "event"
     end
+
+    collection do
+      get "published"
+    end
   end
 
   root "static_page#home"

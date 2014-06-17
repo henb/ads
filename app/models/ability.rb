@@ -6,14 +6,20 @@ class Ability
     #
       user ||= User.new # guest user (not logged in)
 
-      # guest
+      # guest      cannot :index, Myad
       can :read, Typead
       can :read, Myad do |ad|
         ad.published? || ad.user == user
       end
+      
+      cannot :index, Myad do |ad|
+          user.role == "guest"
+      end
+
+      can :published, Myad
 
       if user.role == "user"
-
+        can :read,   Myad
         can :create, Myad  
         can :update, Myad do |ad|
           ad.drafting? && ad.user == user

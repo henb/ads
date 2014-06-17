@@ -21,4 +21,8 @@ module ApplicationHelper
   def flash_key(key)
     ['info','warning','danger','success','default'].include?(key.to_s) ? key : 'info'  
   end
+
+  def admin?
+    current_user && current_user.role == "admin"
+  end
 end

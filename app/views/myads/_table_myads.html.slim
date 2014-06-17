@@ -33,4 +33,3 @@ table.table
               = link_to 'Edit', edit_myad_path(myad), class:"label label-default"
             - if can?(:destroy, myad)   
               = link_to 'Destroy', myad, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"label label-default"
-.text-center = will_paginate myads

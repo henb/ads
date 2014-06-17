@@ -14,10 +14,13 @@
       ul.nav.navbar-nav.navbar-right
         li
           - if can? :create, Myad
-            - if !(current_user && current_user.role == "admin")
+            - if !admin?
               = link_to "My ADS", myads_path
         li
-          = link_to "ADS", myads_path(published:true)
+          - if admin?
+              = link_to "ADS", myads_path
+          - else
+              = link_to "Published ADS", published_myads_path
         - if user_signed_in? 
           li.dropdown
             a.dropdown-toggle data-toggle="dropdown" href="#" 

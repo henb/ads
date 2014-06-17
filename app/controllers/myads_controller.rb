@@ -78,7 +78,10 @@ class MyadsController < ApplicationController
       format.html { redirect_to @myad }
     end
   end
-
+  
+  def published
+    @myads = Myad.where(state:states_ad.index(:published)).paginate(page: params[:page], per_page: 10)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -98,26 +101,13 @@ class MyadsController < ApplicationController
     def params_hash_for_where
       @hash_where = {}
 
-      unless current_user
-        @hash_where[:state] =  states_ad.index(:published)
-        params[:published]=true
-        return
-      end 
-
-
-      if current_user.role == "admin"
+      if admin?
         @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
         return nil
       end
 
-      unless params[:published]
-        @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
-        @hash_where[:user] = current_user if current_user
-      else
-        @hash_where[:state] =  states_ad.index(:published)
-        params[:published] = true 
-      end
-
+      @hash_where[:state] = states_ad.index(params[:state].to_sym) if params[:state]
+      @hash_where[:user] = current_user if current_user
 
     end
 end

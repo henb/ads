@@ -1,0 +1,4 @@
+h1 Listing ads
+p
+  = render partial:"myads/only_table_myads", locals:{myads: @myads}
+  .text-center = will_paginate @myads

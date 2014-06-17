@@ -8,10 +8,6 @@ module MyadsHelper
     !params[:published].nil?
   end
 
-  def admin?
-  	current_user && current_user.role == "admin"
-  end
-
   def admin_states_ad
     states_ad - [:drafting,:archives]
   end
