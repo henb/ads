@@ -4,9 +4,10 @@ class Myad < ActiveRecord::Base
 
   default_scope -> { order('updated_at DESC') }
 
-  validates :typead_id, :presence => true
-  validates :title, :presence => true, length: { minimum:10 }
-  validates :description, :presence => true
+  validates :typead_id, presence: true
+  validates :title, presence: true, length: { in:10..100 }
+  validates :description, presence: true, length: { maximum:500 }
+  validates :user_id, presence: true
 
   state_machine initial: :drafting do
     state :drafting,  value: 0 
