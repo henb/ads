@@ -19,6 +19,7 @@ class Ability
       can :published, Myad
 
       if user.role == "user"
+        can :read, User
         can :read,   Myad
         can :create, Myad  
         can :update, Myad do |ad|
@@ -38,6 +39,7 @@ class Ability
         end
          
       elsif user.role == "admin"
+        can :manage, User
         can :destroy, :all
         can :manage, Typead
         cannot [:create,:update], Myad

@@ -1,0 +1,9 @@
+center.row
+  h1 = full_name @user
+  p.label.label-success  = @user.email
+  br
+  br
+  - if can? :manage, User
+    = link_to "Edit Profile", edit_user_path(@user), class:"btn btn-lg btn-warning"
+hr
+= render partial:"myads/table_myads", locals:{myads: @myads, search:@search}

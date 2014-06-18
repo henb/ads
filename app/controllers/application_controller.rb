@@ -39,10 +39,7 @@ class ApplicationController < ActionController::Base
       		      :last_name,
       		      :email,
       		      :password,
-      		      :password_confirmation,
-      		      :reset_password_token,
-      		      :reset_password_sent_at,
-      		      :remember_created_at) 
+      		      :password_confirmation) 
         end
 
       devise_parameter_sanitizer.for(:account_update) do |u| 
@@ -51,7 +48,7 @@ class ApplicationController < ActionController::Base
                 :email,
                 :password,
                 :password_confirmation,
-                :current_passwordsd) 
+                :current_password) 
         end
 
     end

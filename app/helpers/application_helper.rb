@@ -29,4 +29,5 @@ module ApplicationHelper
   def help_for_serch_form
     @search = Myad.search
   end
+
 end

@@ -1,0 +1,18 @@
+h2 = full_name @user
+h2.label.label-success  = @user.email
+hr
+= simple_form_for(@user, html: { method: :PATCH }) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :first_name, autofocus: true
+    = f.input :last_name
+    = f.input :email, required: true
+    = f.input :role
+    = f.input :password, required: true
+  .form-actions
+    = f.button :submit, "Update"
+h3
+  | Cancel my account
+p
+  = link_to "Cancel #{@user.email} account", user_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger"
+= link_to "Back", :back, class:"btn btn-success"

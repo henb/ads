@@ -1,0 +1,26 @@
+h1 All users
+
+= search_form_for(@search,url:users_path)do |f|
+  = f.search_field :first_name_cont, class:"search_form", placeholder:"First Name"
+  = f.search_field :last_name_cont, class:"search_form", placeholder:"Last Name"
+  = f.search_field :email_cont, class:"search_form", placeholder:"E-mail"
+  br
+  = f.submit class:"search_form"
+
+hr
+
+= will_paginate @users
+
+ul.media-list
+  - @users.each do |user| 
+    li.media
+      = link_to gravatar_for(user), user
+      .media-body
+        h4.media-heading = full_name user
+        p.label.label-success = user.email
+      = link_to 'Show', user, class:"label label-default"
+      - if can?(:update, user)
+        = link_to 'Edit', edit_user_path(user), class:"label label-default"
+      - if can?(:destroy, user)   
+        = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"label label-default"
+= will_paginate @users

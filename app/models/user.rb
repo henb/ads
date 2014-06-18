@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   extend Enumerize
   before_save { self.role = "user" if role!="admin"}
 
-  has_many :myads
+  has_many :myads, dependent: :destroy
 
 
   # Include default devise modules. Others available are:
