@@ -6,11 +6,16 @@ hr
   .form-inputs
     = f.input :first_name, autofocus: true
     = f.input :last_name
-    = f.input :email, required: true
+    = f.input :email
     = f.input :role
-    = f.input :password, required: true
   .form-actions
     = f.button :submit, "Update"
+
+= simple_form_for(@user, html: { method: :PATCH }) do |f|
+  = f.input :password
+  .form-actions
+    = f.button :submit, "Update password"
+
 h3
   | Cancel my account
 p

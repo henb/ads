@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update(my_user_params)
+      if flash[:success] = @user.update(my_user_params)
         flash[:success] = 'User was successfully updated.'
         format.html { redirect_to @user }
         format.json { head :no_content }
