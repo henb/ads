@@ -100,7 +100,7 @@ class MyadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def myad_params
-      params.require(:myad).permit(:title, :description,:typead_id)
+      params.require(:myad).permit(:title, :description,:typead_id,images_attributes:[:id,:url,:_destroy])
     end
 
     def params_hash_for_where

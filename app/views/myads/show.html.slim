@@ -14,8 +14,17 @@ p
     - if can? :event, @myad
 	    = link_to state.first.capitalize, event_myad_path(@myad,event:state.first), class:"btn btn-#{label_event(state.first)}"
 
-
+hr
 - if can? :edit, @myad
   = link_to 'Edit', edit_myad_path(@myad)
 |  | 
 = link_to 'Back', myads_path
+
+hr
+
+- unless @myad.images.size.zero? 
+  .row
+    - @myad.images.each do |image|
+      .col-xs-6.col-md-3
+        a.thumbnail
+          = image_tag image.url

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140615220636) do
+ActiveRecord::Schema.define(version: 20140619175909) do
+
+  create_table "images", force: true do |t|
+    t.string   "url"
+    t.integer  "myad_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "myads", force: true do |t|
     t.string   "title",       default: "", null: false

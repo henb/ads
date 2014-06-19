@@ -31,6 +31,11 @@ GEM
       sass (~> 3.2)
     builder (3.1.4)
     cancan (1.6.10)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     chronic (0.10.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -69,6 +74,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
+    nested_form (0.3.2)
     orm_adapter (0.5.0)
     pg (0.15.1)
     polyamorous (1.0.0)
@@ -161,6 +167,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   cancan
+  carrierwave
   coffee-rails (~> 4.0.0)
   devise
   enumerize
@@ -168,6 +175,7 @@ DEPENDENCIES
   html2slim
   jbuilder (~> 1.2)
   jquery-rails
+  nested_form
   pg
   rails (= 4.0.3)
   rails_12factor

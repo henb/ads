@@ -24,6 +24,9 @@ gem 'will_paginate'
 gem 'faker'
 gem 'ransack'
 
+gem "carrierwave"
+gem "nested_form"
+
 group :doc do
   gem 'sdoc', require: false
 end

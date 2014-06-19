@@ -1,6 +1,8 @@
 class Myad < ActiveRecord::Base
   belongs_to :typead
   belongs_to :user
+  has_many :images, dependent: :destroy
+  accepts_nested_attributes_for :images, reject_if: lambda { |image| image[:url].blank? }, allow_destroy: true
 
   default_scope -> { order('updated_at DESC') }
 

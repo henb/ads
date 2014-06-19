@@ -1,9 +1,20 @@
-= simple_form_for(@myad) do |f|
-  = f.error_notification
-
+= simple_nested_form_for @myad do |f|
   .form-inputs
     = f.input :title
     = f.input :description
     = f.input :typead_id, collection: @typeads
+    strong Select file for delete
+    hr
+    .row
+      = f.simple_fields_for :images do |image_form|
+        .col-xs-6.col-md-3
+          a.thumbnail
+            - if image_form.object.new_record?
+              = image_form.file_field :url
+            - else
+              = image_tag image_form.object.url
+            = image_form.check_box :_destroy
+    = f.link_to_add "Add image", :images,class:"btn btn-success"
+  br
   .form-actions
-    = f.button :submit
+    = f.button :submit 
