@@ -4,7 +4,7 @@ module MyadsHelper
   end
 
   def published_only
-  	return false if current_user && current_user.role == "admin" 
+  	return false if current_user.admin?
     !params[:published].nil?
   end
 

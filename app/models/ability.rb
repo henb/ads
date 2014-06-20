@@ -13,12 +13,12 @@ class Ability
       end
       
       cannot :index, Myad do |ad|
-          user.role == "guest"
+          user.guest?
       end
 
       can :published, Myad
 
-      if user.role == "user"
+      if user.user?
         can :read, User
         can :read,   Myad
         can :create, Myad  
@@ -38,7 +38,7 @@ class Ability
           !(ad.state_events & Myad.user_events).empty?
         end
          
-      elsif user.role == "admin"
+      elsif user.admin?
         can :manage, User
         can :destroy, :all
         can :manage, Typead

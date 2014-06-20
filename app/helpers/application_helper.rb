@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def admin?
-    current_user && current_user.role == "admin"
+    current_user && current_user.admin?
   end
 
   def help_for_serch_form
