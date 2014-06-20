@@ -36,10 +36,8 @@ class MyadsController < ApplicationController
       if @myad.save
         flash[:success] = 'Myad was successfully created.'
         format.html { redirect_to @myad }
-        format.json { render action: 'show', status: :created, location: @myad }
       else
         format.html { render action: 'new' }
-        format.json { render json: @myad.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,10 +49,8 @@ class MyadsController < ApplicationController
       if @myad.update(myad_params)
         flash[:success] = 'Myad was successfully updated.'
         format.html { redirect_to @myad }
-        format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @myad.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,7 +61,6 @@ class MyadsController < ApplicationController
     @myad.destroy
     respond_to do |format|
       format.html { redirect_to myads_url }
-      format.json { head :no_content }
     end
   end
 

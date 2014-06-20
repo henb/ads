@@ -29,9 +29,7 @@ class TypeadsController < ApplicationController
       if @typead.save
         flash[:success] = 'Typead was successfully created.'
         format.html { redirect_to @typead }
-        format.json { render action: 'show', status: :created, location: @typead }
       else
-        format.html { render action: 'new' }
         format.json { render json: @typead.errors, status: :unprocessable_entity }
       end
     end
@@ -44,7 +42,6 @@ class TypeadsController < ApplicationController
       if @typead.myads.size.zero?
         @typead.destroy
         format.html { redirect_to typeads_url }
-        format.json { head :no_content }
       else
         flash[:danger] = 'Typead not empty!'
         format.html { redirect_to @typead}

@@ -22,7 +22,6 @@ class UsersController < ApplicationController
       if flash[:success] = @user.update(my_user_params)
         flash[:success] = 'User was successfully updated.'
         format.html { redirect_to @user }
-        format.json { head :no_content }
       else
         format.html { render action: 'edit' }
       end
