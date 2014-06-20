@@ -8,6 +8,8 @@
 
 Typead.delete_all
 User.delete_all
+Myad.delete_all
+Image.delete_all
 
 30.times do 
   typ = Typead.new(name: Faker::Lorem.words.join, description:Faker::Lorem.paragraph)
