@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Typead.delete_all
+User.delete_all
+
 30.times do 
   typ = Typead.new(name: Faker::Lorem.words.join, description:Faker::Lorem.paragraph)
   typ.save
