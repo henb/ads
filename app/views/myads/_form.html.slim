@@ -13,7 +13,7 @@
               = image_form.file_field :url
             - else
               = image_tag image_form.object.url
-            = image_form.check_box :_destroy
+            = image_form.check_box :_destroy,id:"image"
     = f.link_to_add "Add image", :images,class:"btn btn-success"
   br
   .form-actions

@@ -3,5 +3,5 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ($) ->
-  $('input[type=checkbox]').click ->
+  $('input[type=checkbox]#image').click ->
     $(this).parent().toggleClass('delete-item');
