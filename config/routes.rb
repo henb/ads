@@ -1,6 +1,6 @@
 Ads::Application.routes.draw do
 
-  resources :typeads
+  resources :typeads, except: [:edti,:update]
 
   resources :myads do
     member do
