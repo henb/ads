@@ -72,7 +72,7 @@ class MyadsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to myad_path(@myad) }
+      format.html { redirect_to myad_path(@myad,event:true) }
       format.js 
     end
     

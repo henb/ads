@@ -18,8 +18,7 @@ hr
 - if can? :edit, @myad
   = link_to 'Edit', edit_myad_path(@myad)
   |  | 
-= link_to 'Back', myads_path
-
+= link_alternative('Back', myads_path(params), :back, params[:event]) { |event| event }
 hr
 
 - unless @myad.images.size.zero? 
