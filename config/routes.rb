@@ -1,6 +1,6 @@
 Ads::Application.routes.draw do
 
-  resources :typeads, except: [:edti,:update]
+  resources :typeads, except: [:edit,:update]
 
   resources :myads do
     member do
@@ -9,6 +9,7 @@ Ads::Application.routes.draw do
 
     collection do
       get "published"
+      post "update_all_state"
 
     end
   end

@@ -1,3 +1,4 @@
+td = check_box_tag "myad_ids[]", myad.id if current_user
 td = myad.title
 td = link_to myad.user.email, user_path(myad.user)
 td = link_to(truncate(myad.typead.name,length:30), typead_path(myad.typead),class:"label type")

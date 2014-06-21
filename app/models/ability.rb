@@ -37,8 +37,9 @@ class Ability
         can :event, Myad do |ad|
           !(ad.state_events & Myad.user_events).empty?
         end
-         
+        can :update_all_state, Myad
       elsif user.admin?
+
         can :manage, User
         can :destroy, :all
         can :manage, Typead
@@ -50,6 +51,7 @@ class Ability
         can :event, Myad do |ad|
           !(ad.state_events & Myad.admin_events).empty?
         end
+        can :update_all_state, Myad
       end
 
   end

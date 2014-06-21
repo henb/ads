@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  def events_valid?(event)
+    [event] & (admin? ? Myad.admin_events : Myad.user_events)
+  end
+
   protected
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u| 

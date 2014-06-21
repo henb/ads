@@ -14,6 +14,11 @@ module ApplicationHelper
     Myad.state_machine.events.map &:name
   end
 
+  def events_ad_for_select_tag
+    events_ad & (admin? ? Myad.admin_events : Myad.user_events)
+  end
+
+
   def states_ad
     Myad.state_machine.states.map &:name
   end

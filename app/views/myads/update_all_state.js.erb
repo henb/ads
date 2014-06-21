@@ -1,0 +1,8 @@
+<% unless @event_myads.nil? %>
+  <% @event_myads.each do |myad| %>
+    $("#ad-id<%= myad.id %>").empty().prepend("<%= j render partial:'myads/ad_item/index', locals:{myad: myad} %>");
+  <% end %>
+<% end %>
+
+$(".alert").remove();
+$(".main").prepend("<%= j render partial:'layouts/flash', locals:{flash: @flash} %>");

@@ -84,6 +84,33 @@ class MyadsController < ApplicationController
     @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
+  def update_all_state
+    myad_ids = params[:myad_ids]
+    event = params[:event].to_sym
+    @flash = {}
+    return @flash[:danger] = "You are not authorized to access this page." unless events_valid?(event)
+    if myad_ids && event
+
+      myads = Myad.find(params[:myad_ids])
+
+      @event_myads = []
+      myads.each do |myad|
+        if myad.state_events.include? event
+          @event_myads.push myad
+          myad.send event
+        end
+      end
+
+      @flash[:success]="#{@event_myads.size} ads was successfully updated."
+    else
+      @flash[:danger]="Select an Ad!"
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_myad

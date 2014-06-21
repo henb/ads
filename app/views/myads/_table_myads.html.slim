@@ -1,17 +1,25 @@
-table.table
-  thead
-    tr
-      th = sort_link(search, :title)
-      th = sort_link(search, :user)
-      th = sort_link(search, :typead_name)
-      th = sort_link(search, :state)
-      th = sort_link(search, :actions)
-      th = sort_link(search, :updated_at, default_order: :desc)
-  tbody
-    - myads.each do |myad|
-      - if can?(:read, myad)
-        tr id="ad-id#{myad.id}"  
-          = render partial:"myads/ad_item/index", locals:{myad: myad}
+= form_tag update_all_state_myads_path, remote:true do 
+    - if current_user
+      h3 = "Select state for update"
+      = select_tag :event, options_for_select(events_ad_for_select_tag), class:"btn"
+      |   
+      = submit_tag "Update state", class:"btn btn-success"
+      hr
+    table.table
+      thead
+        tr
+          th = sort_link(search, :id) if current_user
+          th = sort_link(search, :title)
+          th = sort_link(search, :user)
+          th = sort_link(search, :typead_name)
+          th = sort_link(search, :state)
+          th = sort_link(search, :actions)
+          th = sort_link(search, :updated_at, default_order: :desc)
+      tbody
+        - myads.each do |myad|
+          - if can?(:read, myad)
+            tr id="ad-id#{myad.id}"
+              = render partial:"myads/ad_item/index", locals:{myad: myad}
 - if @search.result.size.zero?
   .text-center
     strong Sorry, not found.
