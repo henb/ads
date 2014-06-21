@@ -61,6 +61,7 @@ class MyadsController < ApplicationController
     @myad.destroy
     respond_to do |format|
       format.html { redirect_to myads_url }
+      format.js
     end
   end
 
