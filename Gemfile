@@ -12,7 +12,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'slim-rails'
 gem 'simple_form'
 gem 'devise'
-gem 'html2slim'
 
 gem 'bootstrap-sass', '~> 3.1.1'
 
