@@ -54,10 +54,18 @@ class TypeadsController < ApplicationController
       params[:q] ||= {}
       params[:q][:typead_id_eq] = params[:id]  if params[:id]
 
-      if admin?
-          params[:q][:state_in] = Myad.admin_state
+      if current_user
+        if admin?
+          params[:q][:state_in_or] = Myad.admin_state
+        else
+          params[:q][:g] = []
+          params[:q][:g][0] = {}
+          params[:q][:g][0][:user_id_eq] = current_user.id
+          params[:q][:g][0][:m] = "or"
+          params[:q][:g][0][:state_eq] = states_ad.index(:published)
+        end
       else
-          params[:q][:state_eq] = states_ad.index(:published)
+        params[:q][:state_eq] = states_ad.index(:published)
       end
     end
     # Use callbacks to share common setup or constraints between actions.

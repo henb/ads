@@ -143,10 +143,18 @@ class MyadsController < ApplicationController
 
     def params_q_for_published
      params[:q] ||= {} 
-        if admin?
+     if current_user
+        if current_user.admin?
           params[:q][:state_in] = Myad.admin_state
         else
-          params[:q][:state_eq] = states_ad.index(:published)
+          params[:q][:g] = []
+          params[:q][:g][0] = {}
+          params[:q][:g][0][:user_id_eq] = current_user.id
+          params[:q][:g][0][:m] = "or"
+          params[:q][:g][0][:state_eq] = states_ad.index(:published)
         end
+      else
+        params[:q][:state_eq] = states_ad.index(:published)
+      end
     end
 end
