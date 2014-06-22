@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :myad do
+  factory :image do
     url "http://u.henb.by/img"
   end
 
