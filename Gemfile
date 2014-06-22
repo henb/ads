@@ -39,3 +39,8 @@ group :production,:test do
   gem 'rails_12factor'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl'
+end
+
