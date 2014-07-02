@@ -67,7 +67,7 @@ Admin
 -----------
 ##### Клонировать репозиторий
 ```sh
-git clone https://github.com/henb/hotel-advisor.git
+git clone https://github.com/henb/ads.git
 cd hotel-advisor
 bundle install
 ```
