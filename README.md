@@ -75,6 +75,6 @@ bundle install
 
 1. Зарегистрироваться http://cloudinary.com/
 2. Скачать ***cloudinary.yml***
-3. Переместить в ***hotel-advisor/config***
+3. Переместить в ***ads/config***
 
 ###### Good Luck!
