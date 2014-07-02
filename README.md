@@ -77,4 +77,4 @@ bundle install
 2. Скачать ***cloudinary.yml***
 3. Переместить в ***ads/config***
 
-###### Good Luck!
+###### Удачи!
