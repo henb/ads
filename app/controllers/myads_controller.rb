@@ -91,7 +91,7 @@ class MyadsController < ApplicationController
 
       @event_myads = []
       myads.each do |myad|
-        next if myad.state_events.include? event
+        next unless myad.state_events.include? event
         @event_myads.push myad
         myad.send event
       end

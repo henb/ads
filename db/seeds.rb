@@ -37,7 +37,7 @@ admin.save
     password:              '11111111',
     password_confirmation: '11111111')
 
-  next if user.save
+  next unless user.save
   15.times do
     ad = user.myads.new(
           title:       Faker::Name.title,
