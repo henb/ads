@@ -1,14 +1,14 @@
-inputs = %w[
-   CollectionSelectInput
-   DateTimeInput
-   FileInput
-   GroupedCollectionSelectInput
-   NumericInput
-   PasswordInput
-   RangeInput
-   StringInput
-   TextInput
-]
+inputs = %w(
+  CollectionSelectInput
+  DateTimeInput
+  FileInput
+  GroupedCollectionSelectInput
+  NumericInput
+  PasswordInput
+  RangeInput
+  StringInput
+  TextInput
+)
 
 inputs.each do |input_type|
   superclass = "SimpleForm::Inputs::#{input_type}".constantize

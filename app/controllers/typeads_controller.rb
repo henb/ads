@@ -44,37 +44,37 @@ class TypeadsController < ApplicationController
         format.html { redirect_to typeads_url }
       else
         flash[:danger] = 'Typead not empty!'
-        format.html { redirect_to @typead}
+        format.html { redirect_to @typead }
       end
     end
   end
 
   private
-    def set_search
-      params[:q] ||= {}
-      params[:q][:typead_id_eq] = params[:id]  if params[:id]
+  def set_search
+    params[:q] ||= {}
+    params[:q][:typead_id_eq] = params[:id]  if params[:id]
 
-      if current_user
-        if admin?
-          params[:q][:state_in_or] = Myad.admin_state
-        else
-          params[:q][:g] = []
-          params[:q][:g][0] = {}
-          params[:q][:g][0][:user_id_eq] = current_user.id
-          params[:q][:g][0][:m] = "or"
-          params[:q][:g][0][:state_eq] = states_ad.index(:published)
-        end
+    if current_user
+      if admin?
+        params[:q][:state_in_or] = Myad.admin_state
       else
-        params[:q][:state_eq] = states_ad.index(:published)
+        params[:q][:g] = []
+        params[:q][:g][0] = {}
+        params[:q][:g][0][:user_id_eq] = current_user.id
+        params[:q][:g][0][:m] = 'or'
+        params[:q][:g][0][:state_eq] = states_ad.index(:published)
       end
+    else
+      params[:q][:state_eq] = states_ad.index(:published)
     end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_typead
-      @typead = Typead.find(params[:id])
-    end
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_typead
+    @typead = Typead.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def typead_params
-      params.require(:typead).permit(:name, :description)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def typead_params
+    params.require(:typead).permit(:name, :description)
+  end
 end
