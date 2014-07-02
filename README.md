@@ -68,7 +68,7 @@ Admin
 ##### Клонировать репозиторий
 ```sh
 git clone https://github.com/henb/ads.git
-cd hotel-advisor
+cd ads
 bundle install
 ```
 ##### Cloudinary (Rails & CarrierWave интеграция)
