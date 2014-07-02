@@ -73,7 +73,7 @@ bundle install
 ```
 ##### Cloudinary (Rails & CarrierWave интеграция)
 
-1. Зарегистрироваться http://cloudinary.com/
+1. Зарегистрироваться на http://cloudinary.com/
 2. Скачать ***cloudinary.yml***
 3. Переместить в ***ads/config***
 
