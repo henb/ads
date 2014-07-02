@@ -24,6 +24,7 @@ gem 'faker'
 gem 'ransack'
 
 gem "carrierwave"
+gem 'cloudinary'
 gem "nested_form"
 
 group :doc do
