@@ -31,14 +31,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development,:test do
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
+gem 'pg'
+gem 'rails_12factor'
 
 group :test do
   gem 'rspec-rails'
