@@ -29,8 +29,6 @@ class TypeadsController < ApplicationController
       if @typead.save
         flash[:success] = 'Typead was successfully created.'
         format.html { redirect_to @typead }
-      else
-        format.json { render json: @typead.errors, status: :unprocessable_entity }
       end
     end
   end
