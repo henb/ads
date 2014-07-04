@@ -4,7 +4,7 @@ module ApplicationHelper
     return :none unless (0...arr.size).include? index
     arr[index]
   end
-  
+
   def label_event(symbol)
     label_state events_ad.index(symbol)
   end
