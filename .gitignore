@@ -17,4 +17,4 @@
 
 /public/uploads
 /config/cloudinary.yml
-/Gemfile.lock
+/config/database.yml

@@ -1,0 +1,21 @@
+---
+development:
+  cloud_name: afs3235erte
+  api_key: '576234324435455'
+  api_secret: rH34trHTRrtTRYTRY234353YRTf
+  enhance_image_tag: true
+  static_image_support: false
+
+production:
+  cloud_name: afs3235erte
+  api_key: '576234324435455'
+  api_secret: rH34trHTRrtTRYTRY234353YRTf
+  enhance_image_tag: true
+  static_image_support: true
+
+test:
+  cloud_name: afs3235erte
+  api_key: '576234324435455'
+  api_secret: rH34trHTRrtTRYTRY234353YRTf
+  enhance_image_tag: true
+  static_image_support: false
