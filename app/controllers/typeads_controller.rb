@@ -29,6 +29,8 @@ class TypeadsController < ApplicationController
       if @typead.save
         flash[:success] = 'Typead was successfully created.'
         format.html { redirect_to @typead }
+      else
+        format.html { render action: 'new' }
       end
     end
   end
