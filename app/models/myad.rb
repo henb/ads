@@ -7,12 +7,12 @@ class Myad < ActiveRecord::Base
   default_scope -> { order('updated_at DESC') }
 
   validates :typead_id, presence: true
-  validates :title, presence: true, length: { in:10..100 }
-  validates :description, presence: true, length: { maximum:500 }
+  validates :title, presence: true, length: { in: 10..100 }
+  validates :description, presence: true, length: { maximum: 500 }
   validates :user_id, presence: true
 
   state_machine initial: :drafting do
-    state :drafting,  value: 0 
+    state :drafting,  value: 0
     state :freshing,  value: 1
     state :rejected,  value: 2
     state :approved,  value: 3
@@ -21,58 +21,55 @@ class Myad < ActiveRecord::Base
     state :banned,    value: 6
 
     event :draft do
-      transition [:rejected,:archives] => :drafting   
+      transition [:rejected, :archives] => :drafting
     end
     event :fresh do
-      transition :drafting => :freshing   
+      transition drafting: :freshing
     end
 
     event :reject do
-      transition :freshing => :rejected   
+      transition freshing: :rejected
     end
 
     event :approve do
-      transition :freshing => :approved   
+      transition freshing: :approved
     end
 
     event :publish do
-      transition :approved => :published   
+      transition approved: :published
     end
 
     event :archive do
-      transition :published => :archives   
+      transition published: :archives
     end
 
     event :ban do
-      transition :freshing => :banned   
+      transition freshing: :banned
     end
 
   end
 
   def self.admin_events
-    [:reject,:approve,:ban]
+    [:reject, :approve, :ban]
   end
 
   def self.user_events
-    [:draft,:fresh]
+    [:draft, :fresh]
   end
 
   def self.admin_state
-    [1,2,3,4,6]
+    [1, 2, 3, 4, 6]
   end
-
-
-
 
   def self.update_ads
     ads = Myad.with_state(:approved)
-    ads.each {|ad| ad.publish }
+    ads.each { |ad| ad.publish }
   end
 
   def self.updete_published
     ads = Myad.with_state(:published)
     valide = proc { |ad| ad.updated_at + 3.day - Time.new > 0 ? true : false }
-    
+
     ads.each { |ad| ad.archive unless valide.call ad }
   end
 end

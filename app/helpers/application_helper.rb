@@ -1,7 +1,6 @@
 module ApplicationHelper
-
   def label_state(index)
-    arr = [:default,:primary,:warning,:info,:success,:archive,:danger]
+    arr = [:default, :primary, :warning, :info, :success, :archive, :danger]
     return :none unless (0...arr.size).include? index
     arr[index]
   end
@@ -18,13 +17,12 @@ module ApplicationHelper
     events_ad & (admin? ? Myad.admin_events : Myad.user_events)
   end
 
-
   def states_ad
     Myad.state_machine.states.map &:name
   end
-  
+
   def flash_key(key)
-    ['info','warning','danger','success','default'].include?(key.to_s) ? key : 'info'  
+    %w(info warning danger success default).include?(key.to_s) ? key : 'info'
   end
 
   def admin?
@@ -34,5 +32,4 @@ module ApplicationHelper
   def help_for_serch_form
     @search = Myad.search
   end
-
 end
