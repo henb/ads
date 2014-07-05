@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */
 
@@ -19,9 +20,9 @@
 }
 
 a.btn-archive{
-  &:hover { 
+  &:hover {
     background:#DF7401;
-    color:white; 
+    color:white;
   }
   background:#B45F04;
   color:white;
@@ -34,9 +35,9 @@ a.btn-archive{
 
 
 a.btn-none{
-  &:hover { 
+  &:hover {
     background:#A901DB;
-    color:white; 
+    color:white;
   }
   background:#BF00FF;
   color:white;
@@ -72,4 +73,8 @@ a.btn-none{
 .help-inline{
   @extend .label;
   @extend .label-danger;
+}
+
+input[type="checkbox"].bootstrap-wysihtml5-insert-link-target{
+  margin:0;
 }

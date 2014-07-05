@@ -1,14 +1,14 @@
 h1
   = @typead.name
 p
-  = @typead.description
+  = @typead.description.html_safe
 
 hr
 
 - if can?(:destroy, @typead)
     p
       = link_to 'Destroy', @typead, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-sm btn-danger"
- 
+
 p
   = render partial:"myads/table_myads", locals:{myads: @myads,search:@search}
 
