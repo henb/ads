@@ -13,7 +13,7 @@ gem 'simple_form'
 gem 'devise'
 
 gem 'bootstrap-sass', '~> 3.1.1'
-
+gem 'bootstrap-wysihtml5-rails'
 gem 'state_machine'
 gem 'enumerize'
 gem 'whenever'
