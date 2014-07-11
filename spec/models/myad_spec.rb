@@ -9,47 +9,47 @@ describe Myad do
 
   it 'create Myad' do
     @myad.typead = @typead
-    @myad.user   = @user
-    @myad.save.should be
+    @myad.user = @user
+    expect(@myad.save).to be
   end
 
   describe 'testing state_machine' do
     subject { @myad }
 
-    it 'drafting' do
-      subject.drafting?.should be
+    it '#drafting' do
+      expect(subject.drafting?).to be
     end
 
-    it 'events' do
-      subject.state_paths.events.size.should == 7
+    it '#events' do
+      expect(subject.state_paths.events.size).to eq 7
     end
 
-    it 'state' do
-      subject.state_paths.to_states.size.should == 7
+    it '#state' do
+      expect(subject.state_paths.to_states.size).to eq 7
     end
   end
 
-  describe 'testing self methods' do
+  describe 'testing class methods' do
     subject { Myad }
 
-    it 'define self.admin_events' do
-      subject.should respond_to(:admin_events)
+    it '.admin_events' do
+      expect(subject).to respond_to(:admin_events)
     end
 
-    it 'define self.user_events' do
-      subject.should respond_to(:user_events)
+    it '.user_events' do
+      expect(subject).to respond_to(:user_events)
     end
 
-    it 'define self.admin_state' do
-      subject.should respond_to(:admin_state)
+    it '.admin_state' do
+      expect(subject).to respond_to(:admin_state)
     end
 
-    it 'define self.update_ads' do
-      subject.should respond_to(:update_ads)
+    it '.update_ads' do
+      expect(subject).to respond_to(:update_ads)
     end
 
-    it 'define self.updete_published' do
-      subject.should respond_to(:updete_published)
+    it '.updete_published' do
+      expect(subject).to respond_to(:updete_published)
     end
 
   end

@@ -2,35 +2,35 @@ require 'spec_helper'
 
 describe User do
 
-  it 'create User' do
+  it '.new' do
     User.new
   end
 
   describe 'User attributes' do
     subject { User.new }
 
-    it 'attributes id' do
-      subject.should respond_to(:id)
+    it '#id' do
+      expect(subject).to respond_to(:id)
     end
 
-    it 'attributes first_name' do
-      subject.should respond_to(:first_name)
+    it '#first_name' do
+      expect(subject).to respond_to(:first_name)
     end
 
-    it 'attributes last_name' do
-      subject.should respond_to(:last_name)
+    it '#last_name' do
+      expect(subject).to respond_to(:last_name)
     end
 
-    it 'attributes email' do
-      subject.should respond_to(:email)
+    it '#email' do
+      expect(subject).to respond_to(:email)
     end
 
-    it 'attributes password' do
-      subject.should respond_to(:password)
+    it '#password' do
+      expect(subject).to respond_to(:password)
     end
 
-    it 'attributes role' do
-      subject.should respond_to(:role)
+    it '#role' do
+      expect(subject).to respond_to(:role)
     end
 
   end
@@ -39,12 +39,12 @@ describe User do
     subject { build :guest_user }
 
     it 'verification role' do
-      subject.guest?.should be
+      expect(subject.guest?).to be
     end
 
     it 'verification role after create' do
-      subject.save
-      subject.guest?.should be_false
+      expect(subject.save)
+      expect(subject.guest?).to be_false
     end
   end
 
@@ -52,7 +52,7 @@ describe User do
     subject { create :user_user }
 
     it 'verification role' do
-      subject.user?.should be
+      expect(subject.user?).to be
     end
 
   end
@@ -60,5 +60,8 @@ describe User do
   describe 'admin' do
     subject { create :admin_user }
 
+    it 'verification role' do
+      expect(subject.admin?).to be
+    end
   end
 end
