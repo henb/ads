@@ -1,6 +1,5 @@
 class MyadsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_myad, only: [:show, :edit, :update, :destroy, :event]
   before_action :gget_type, only: [:new, :create, :edit]
   before_action :params_hash_for_where, only: :index
   before_action :params_q_for_published, only: :published
@@ -95,10 +94,6 @@ class MyadsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_myad
-    @myad = Myad.find(params[:id])
-  end
 
   def gget_type
     @typeads = Typead.all

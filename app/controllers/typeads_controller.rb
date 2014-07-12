@@ -1,6 +1,5 @@
 class TypeadsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_typead, only: :destroy
   before_action :set_search, only: :show
 
   def index
@@ -59,10 +58,6 @@ class TypeadsController < ApplicationController
     else
       params[:q][:state_eq] = states_ad.index(:published)
     end
-  end
-  # Use callbacks to share common setup or constraints between actions.
-  def set_typead
-    @typead = Typead.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

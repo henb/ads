@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_user, only: [:show, :edit, :destroy, :update]
   before_action :set_search, only: :show
 
   def edit
@@ -35,10 +34,6 @@ class UsersController < ApplicationController
   end
 
   private
-  def set_user
-    @user = User.find(params[:id])
-  end
-
   def set_search
     params[:q] ||= {}
     params[:q][:user_id_eq] = params[:id]  if params[:id]
