@@ -2,7 +2,7 @@ class Myad < ActiveRecord::Base
   belongs_to :typead
   belongs_to :user
   has_many :images, dependent: :destroy
-  accepts_nested_attributes_for :images, reject_if: lambda { |image| image[:url].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :images, reject_if: ->(image) { image[:url].blank? }, allow_destroy: true
 
   default_scope -> { order('updated_at DESC') }
 
@@ -63,19 +63,16 @@ class Myad < ActiveRecord::Base
 
   def self.update_ads
     ads = Myad.with_state(:approved)
-    ads.each { |ad| ad.publish }
+    ads.reduce(0) { |a, e| a + (e.publish ? 1 : 0) }
   end
 
   def self.updete_published
     ads = Myad.with_state(:published)
-    valide = proc { |ad| ad.updated_at + 3.day - Time.new > 0 ? true : false }
-    count = 0
-
-    ads.each do |ad|
-      next if valide.call(ad)
-      ad.archive
-      count += 1
+    archive = lambda do |ad|
+      flag = ad.updated_at + 3.day - Time.new > 0 ? true : false
+      return ad.archive unless flag
+      flag
     end
-    count
+    ads.reduce(0) { |a, e| a + (archive.call(e) ? 0 : 1) }
   end
 end
