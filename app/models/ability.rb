@@ -12,9 +12,7 @@ class Ability
       ad.published? || ad.user == user
     end
 
-    cannot :index, Myad do |_ad|
-      user.guest?
-    end
+    cannot :index, Myad
 
     can :published, Myad
 

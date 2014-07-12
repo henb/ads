@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   extend Enumerize
-  before_save { self.role = :user unless role.admin? }
+  before_save { self.role = :user unless admin? }
 
   has_many :myads, dependent: :destroy
 
@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  enumerize :role, in: [:guest, :user, :admin], default: :guest, predicates: true
+  enumerize :role, in: [:user, :admin], predicates: true
 end

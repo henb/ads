@@ -3,53 +3,84 @@ require 'spec_helper'
 describe Myad do
   before :all do
     @typead = create :typead
-    @user   = create :user
-    @myad = build :myad
+    @user   = create :user_user
+    @myad   = build  :myad
   end
 
   it 'create Myad' do
     @myad.typead = @typead
-    @myad.user   = @user
-    @myad.save.should be
+    @myad.user = @user
+    expect(@myad.save).to be
+  end
+
+  describe 'connections' do
+    it { expect(subject).to have_many(:images).dependent(:destroy) }
+    it { expect(subject).to belong_to(:typead) }
+    it { expect(subject).to belong_to(:user) }
+  end
+
+  describe 'validates' do
+    it { expect(subject).to validate_presence_of(:title) }
+    it { expect(subject).to validate_presence_of(:typead_id) }
+    it { expect(subject).to validate_presence_of(:user_id) }
+    it { expect(subject).to validate_presence_of(:description) }
+
+    it { expect(subject).to ensure_length_of(:title).is_at_least(10).is_at_most(100) }
+    it { expect(subject).to ensure_length_of(:description).is_at_most(500) }
+
+    it { expect(subject).to accept_nested_attributes_for(:images).allow_destroy(true) }
+  end
+
+  describe 'scopes' do
+    it { expect(Myad.scoped.to_sql).to eq Myad.order("updated_at DESC").to_sql }
   end
 
   describe 'testing state_machine' do
     subject { @myad }
 
-    it 'drafting' do
-      subject.drafting?.should be
+    describe 'default state for myad' do
+      it { expect(subject.drafting?).to be }
+    end
+    describe '#events' do
+      it 'returns all events for myad' do
+        expect(subject.state_paths.events).to include(:fresh,
+          :reject, :draft, :approve, :publish, :archive, :ban)
+      end
     end
 
-    it 'events' do
-      subject.state_paths.events.size.should == 7
-    end
-
-    it 'state' do
-      subject.state_paths.to_states.size.should == 7
+    describe '#state' do
+      it 'returns all states for myad' do
+        expect(subject.state_paths.to_states).to include(:freshing,
+          :rejected, :drafting, :approved, :published, :archives, :banned)
+      end
     end
   end
 
-  describe 'testing self methods' do
+  describe 'class methods' do
     subject { Myad }
 
-    it 'define self.admin_events' do
-      subject.should respond_to(:admin_events)
+    describe '.admin_events' do
+      it 'returns events available for admin' do
+        expect(subject.admin_events).to include(:reject, :approve, :ban)
+      end
+
+      it "doesn't return user's events" do
+        expect(subject.admin_events).not_to include(:draft, :fresh)
+      end
     end
 
-    it 'define self.user_events' do
-      subject.should respond_to(:user_events)
+    describe '.user_events' do
+      it 'returns events available for user' do
+        expect(subject.user_events).to include(:draft, :fresh)
+      end
+
+      it "doesn't return admin's events" do
+        expect(subject.user_events).not_to include(:reject, :approve, :ban)
+      end
     end
 
-    it 'define self.admin_state' do
-      subject.should respond_to(:admin_state)
-    end
-
-    it 'define self.update_ads' do
-      subject.should respond_to(:update_ads)
-    end
-
-    it 'define self.updete_published' do
-      subject.should respond_to(:updete_published)
+    it '.admin_state' do
+      expect(subject.admin_state).to eq [1, 2, 3, 4, 6]
     end
 
   end

@@ -2,63 +2,32 @@ require 'spec_helper'
 
 describe User do
 
-  it 'create User' do
-    User.new
+  describe 'Enumerize' do
+    it { expect(subject).to enumerize(:role).in(:user, :admin) }
   end
 
-  describe 'User attributes' do
-    subject { User.new }
-
-    it 'attributes id' do
-      subject.should respond_to(:id)
-    end
-
-    it 'attributes first_name' do
-      subject.should respond_to(:first_name)
-    end
-
-    it 'attributes last_name' do
-      subject.should respond_to(:last_name)
-    end
-
-    it 'attributes email' do
-      subject.should respond_to(:email)
-    end
-
-    it 'attributes password' do
-      subject.should respond_to(:password)
-    end
-
-    it 'attributes role' do
-      subject.should respond_to(:role)
-    end
-
+  describe 'Connections' do
+    it { expect(subject).to have_many(:myads).dependent(:destroy) }
   end
 
-  describe 'guest' do
-    subject { build :guest_user }
+  describe 'guest & user' do
+    subject { build :user_guest }
 
     it 'verification role' do
-      subject.guest?.should be
+      expect(subject.user?).not_to be
     end
 
     it 'verification role after create' do
-      subject.save
-      subject.guest?.should be_false
+      expect(subject.save).to be
+      expect(subject.user?).to be
     end
-  end
-
-  describe 'user' do
-    subject { create :user_user }
-
-    it 'verification role' do
-      subject.user?.should be
-    end
-
   end
 
   describe 'admin' do
     subject { create :admin_user }
 
+    it 'verification role' do
+      expect(subject.admin?).to be
+    end
   end
 end

@@ -17,7 +17,7 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'state_machine'
 gem 'enumerize'
 gem 'whenever'
-gem 'cancan'
+gem 'cancancan'
 gem 'will_paginate'
 gem 'faker'
 gem 'ransack'
@@ -35,5 +35,6 @@ gem 'rails_12factor'
 
 group :test do
   gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
 end
