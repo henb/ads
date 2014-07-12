@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Myad do
   before :all do
     @typead = create :typead
-    @user   = create :user
+    @user   = create :user_user
     @myad = build :myad
   end
 
@@ -59,26 +59,15 @@ describe Myad do
     subject { Myad }
 
     it '.admin_events' do
-      expect(subject).to respond_to(:admin_events)
       expect(subject.admin_events).to eq [:reject, :approve, :ban]
     end
 
     it '.user_events' do
-      expect(subject).to respond_to(:user_events)
       expect(subject.user_events).to eq [:draft, :fresh]
     end
 
     it '.admin_state' do
-      expect(subject).to respond_to(:admin_state)
       expect(subject.admin_state).to eq [1, 2, 3, 4, 6]
-    end
-
-    it '.update_ads' do
-      expect(subject).to respond_to(:update_ads)
-    end
-
-    it '.updete_published' do
-      expect(subject).to respond_to(:updete_published)
     end
 
   end

@@ -10,8 +10,8 @@ FactoryGirl.define do
     password '11111111'
     password_confirmation '11111111'
 
-    factory :guest_user do
-      role 'guest'
+    factory :user_guest do
+      role nil
     end
 
     factory :user_user do
