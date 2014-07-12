@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Myad do
   before :all do
     @typead = create :typead
-    @user   = create :user
-    @myad = build :myad
+    @user   = create :user_user
+    @myad   = build :myad
   end
 
   it 'create Myad' do
@@ -32,53 +32,55 @@ describe Myad do
   end
 
   describe 'scopes' do
-    it { expect(Myad.scoped.to_sql).to eq Myad.order("updated_at DESC").to_sql }
+    it { expect(Myad.scoped.to_sql).to eq Myad.order('updated_at DESC').to_sql }
   end
 
   describe 'testing state_machine' do
     subject { @myad }
 
-    it { expect(subject.drafting?).to be }
-    it { expect(subject.freshing?).not_to be }
-    it { expect(subject.rejected?).not_to be }
-    it { expect(subject.approved?).not_to be }
-    it { expect(subject.published?).not_to be }
-    it { expect(subject.archives?).not_to be }
-    it { expect(subject.banned?).not_to be }
-
-    it '#events' do
-      expect(subject.state_paths.events.size).to eq 7
+    describe 'default state for myad' do
+      it { expect(subject.drafting?).to be }
+    end
+    describe '#events' do
+      it 'returns all events for myad' do
+        expect(subject.state_paths.events).to include(:fresh,
+                                                      :reject, :draft, :approve, :publish, :archive, :ban)
+      end
     end
 
-    it '#state' do
-      expect(subject.state_paths.to_states.size).to eq 7
+    describe '#state' do
+      it 'returns all states for myad' do
+        expect(subject.state_paths.to_states).to include(:freshing,
+                                                         :rejected, :drafting, :approved, :published, :archives, :banned)
+      end
     end
   end
 
   describe 'class methods' do
     subject { Myad }
 
-    it '.admin_events' do
-      expect(subject).to respond_to(:admin_events)
-      expect(subject.admin_events).to eq [:reject, :approve, :ban]
+    describe '.admin_events' do
+      it 'returns events available for admin' do
+        expect(subject.admin_events).to include(:reject, :approve, :ban)
+      end
+
+      it "doesn't return user's events" do
+        expect(subject.admin_events).not_to include(:draft, :fresh)
+      end
     end
 
-    it '.user_events' do
-      expect(subject).to respond_to(:user_events)
-      expect(subject.user_events).to eq [:draft, :fresh]
+    describe '.user_events' do
+      it 'returns events available for user' do
+        expect(subject.user_events).to include(:draft, :fresh)
+      end
+
+      it "doesn't return admin's events" do
+        expect(subject.user_events).not_to include(:reject, :approve, :ban)
+      end
     end
 
     it '.admin_state' do
-      expect(subject).to respond_to(:admin_state)
       expect(subject.admin_state).to eq [1, 2, 3, 4, 6]
-    end
-
-    it '.update_ads' do
-      expect(subject).to respond_to(:update_ads)
-    end
-
-    it '.updete_published' do
-      expect(subject).to respond_to(:updete_published)
     end
 
   end
