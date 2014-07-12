@@ -4,7 +4,7 @@ describe Myad do
   before :all do
     @typead = create :typead
     @user   = create :user_user
-    @myad = build :myad
+    @myad   = build  :myad
   end
 
   it 'create Myad' do
@@ -38,20 +38,21 @@ describe Myad do
   describe 'testing state_machine' do
     subject { @myad }
 
-    it { expect(subject.drafting?).to be }
-    it { expect(subject.freshing?).not_to be }
-    it { expect(subject.rejected?).not_to be }
-    it { expect(subject.approved?).not_to be }
-    it { expect(subject.published?).not_to be }
-    it { expect(subject.archives?).not_to be }
-    it { expect(subject.banned?).not_to be }
-
-    it '#events' do
-      expect(subject.state_paths.events.size).to eq 7
+    describe 'default state for myad' do
+      it { expect(subject.drafting?).to be }
+    end
+    describe '#events' do
+      it 'returns all events for myad' do
+        expect(subject.state_paths.events).to include(:fresh,
+          :reject, :draft, :approve, :publish, :archive, :ban)
+      end
     end
 
-    it '#state' do
-      expect(subject.state_paths.to_states.size).to eq 7
+    describe '#state' do
+      it 'returns all states for myad' do
+        expect(subject.state_paths.to_states).to include(:freshing,
+          :rejected, :drafting, :approved, :published, :archives, :banned)
+      end
     end
   end
 
@@ -59,8 +60,18 @@ describe Myad do
     subject { Myad }
 
     describe '.admin_events' do
-      it 'returns events available for user' do
+      it 'returns events available for admin' do
         expect(subject.admin_events).to include(:reject, :approve, :ban)
+      end
+
+      it "doesn't return user's events" do
+        expect(subject.admin_events).not_to include(:draft, :fresh)
+      end
+    end
+
+    describe '.user_events' do
+      it 'returns events available for user' do
+        expect(subject.user_events).to include(:draft, :fresh)
       end
 
       it "doesn't return admin's events" do
@@ -68,12 +79,8 @@ describe Myad do
       end
     end
 
-    it '.user_events' do
-      expect(subject.user_events).to include(:draft, :fresh)
-    end
-
     it '.admin_state' do
-      expect(subject.admin_state).to include(1, 2, 3, 4, 6)
+      expect(subject.admin_state).to eq [1, 2, 3, 4, 6]
     end
 
   end
