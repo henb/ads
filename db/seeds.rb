@@ -1,15 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-Typead.delete_all
-User.delete_all
-Myad.delete_all
-Image.delete_all
 
 30.times do
   typ = Typead.new(name: Faker::Lorem.words.join, description: Faker::Lorem.paragraph)

@@ -10,12 +10,10 @@ Ads::Application.routes.draw do
     collection do
       get 'published'
       post 'update_all_state'
-
     end
   end
 
   root 'static_page#home'
-  get 'static_page/about'
 
   devise_for :users
   resources :users, except: [:new, :create]
