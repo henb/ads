@@ -69,7 +69,13 @@ class Myad < ActiveRecord::Base
   def self.updete_published
     ads = Myad.with_state(:published)
     valide = proc { |ad| ad.updated_at + 3.day - Time.new > 0 ? true : false }
+    count = 0
 
-    ads.each { |ad| ad.archive unless valide.call ad }
+    ads.each do |ad|
+      next if valide.call(ad)
+      ad.archive
+      count += 1
+    end
+    count
   end
 end
