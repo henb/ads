@@ -44,7 +44,7 @@ describe User do
 
     it 'verification role after create' do
       expect(subject.save)
-      expect(subject.guest?).to be_false
+      expect(subject.user?).to be
     end
   end
 
