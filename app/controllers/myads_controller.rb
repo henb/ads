@@ -4,30 +4,22 @@ class MyadsController < ApplicationController
   before_action :gget_type, only: [:new, :create, :edit]
   before_action :params_hash_for_where, only: :index
   before_action :params_q_for_published, only: :published
-  # GET /myads
-  # GET /myads.json
 
   def index
     @search = Myad.search(params[:q])
     @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
-  # GET /myads/1
-  # GET /myads/1.json
   def show
   end
 
-  # GET /myads/new
   def new
     @myad = Myad.new
   end
 
-  # GET /myads/1/edit
   def edit
   end
 
-  # POST /myads.
-  # POST /myads.json
   def create
     @myad = Myad.new(myad_params)
     @myad.user = current_user
@@ -42,8 +34,6 @@ class MyadsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /myads/1
-  # PATCH/PUT /myads/1.json
   def update
     respond_to do |format|
       if @myad.update(myad_params)
@@ -55,8 +45,6 @@ class MyadsController < ApplicationController
     end
   end
 
-  # DELETE /myads/1
-  # DELETE /myads/1.json
   def destroy
     @myad.destroy
     respond_to do |format|

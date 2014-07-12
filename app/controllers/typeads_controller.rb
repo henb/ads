@@ -2,26 +2,20 @@ class TypeadsController < ApplicationController
   load_and_authorize_resource
   before_action :set_typead, only: :destroy
   before_action :set_search, only: :show
-  # GET /typeads
-  # GET /typeads.json
+
   def index
     @typeads = Typead.all
   end
 
-  # GET /typeads/1
-  # GET /typeads/1.json
   def show
     @search = Myad.search(params[:q])
     @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
-  # GET /typeads/new
   def new
     @typead = Typead.new
   end
 
-  # POST /typeads
-  # POST /typeads.json
   def create
     @typead = Typead.new(typead_params)
 
@@ -35,8 +29,6 @@ class TypeadsController < ApplicationController
     end
   end
 
-  # DELETE /typeads/1
-  # DELETE /typeads/1.json
   def destroy
     respond_to do |format|
       if @typead.myads.size.zero?
