@@ -58,16 +58,22 @@ describe Myad do
   describe 'class methods' do
     subject { Myad }
 
-    it '.admin_events' do
-      expect(subject.admin_events).to eq [:reject, :approve, :ban]
+    describe '.admin_events' do
+      it 'returns events available for user' do
+        expect(subject.admin_events).to include(:reject, :approve, :ban)
+      end
+
+      it "doesn't return admin's events" do
+        expect(subject.user_events).not_to include(:reject, :approve, :ban)
+      end
     end
 
     it '.user_events' do
-      expect(subject.user_events).to eq [:draft, :fresh]
+      expect(subject.user_events).to include(:draft, :fresh)
     end
 
     it '.admin_state' do
-      expect(subject.admin_state).to eq [1, 2, 3, 4, 6]
+      expect(subject.admin_state).to include(1, 2, 3, 4, 6)
     end
 
   end
