@@ -28,7 +28,7 @@ describe Myad do
     it { expect(subject).to ensure_length_of(:title).is_at_least(10).is_at_most(100) }
     it { expect(subject).to ensure_length_of(:description).is_at_most(500) }
 
-    it { expect accept_nested_attributes_for(:images) }
+    it { expect accept_nested_attributes_for(:images).allow_destroy(true) }
   end
 
   describe 'scopes' do
