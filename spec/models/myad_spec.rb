@@ -4,7 +4,7 @@ describe Myad do
   before :all do
     @typead = create :typead
     @user   = create :user_user
-    @myad   = build  :myad
+    @myad   = build :myad
   end
 
   it 'create Myad' do
@@ -32,7 +32,7 @@ describe Myad do
   end
 
   describe 'scopes' do
-    it { expect(Myad.scoped.to_sql).to eq Myad.order("updated_at DESC").to_sql }
+    it { expect(Myad.scoped.to_sql).to eq Myad.order('updated_at DESC').to_sql }
   end
 
   describe 'testing state_machine' do
@@ -44,14 +44,14 @@ describe Myad do
     describe '#events' do
       it 'returns all events for myad' do
         expect(subject.state_paths.events).to include(:fresh,
-          :reject, :draft, :approve, :publish, :archive, :ban)
+                                                      :reject, :draft, :approve, :publish, :archive, :ban)
       end
     end
 
     describe '#state' do
       it 'returns all states for myad' do
         expect(subject.state_paths.to_states).to include(:freshing,
-          :rejected, :drafting, :approved, :published, :archives, :banned)
+                                                         :rejected, :drafting, :approved, :published, :archives, :banned)
       end
     end
   end

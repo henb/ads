@@ -15,7 +15,7 @@ describe Typead do
   end
 
   describe 'scopes' do
-    it { expect(Typead.scoped.to_sql).to eq Typead.order("name ASC").to_sql }
+    it { expect(Typead.scoped.to_sql).to eq Typead.order('name ASC').to_sql }
   end
 
 end

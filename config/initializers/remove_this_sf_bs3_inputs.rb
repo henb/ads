@@ -28,4 +28,4 @@ textarea = Class.new(SimpleForm::Inputs::TextInput) do
   end
 end
 
-Object.const_set("TextInput", textarea)
+Object.const_set('TextInput', textarea)
