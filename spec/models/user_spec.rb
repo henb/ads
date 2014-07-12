@@ -6,6 +6,16 @@ describe User do
     User.new
   end
 
+  describe 'Enumerize' do
+    it { expect(subject).to enumerize(:role).in(:guest, :user, :admin) }
+    it { expect(subject).to enumerize(:role).in(:guest, :user, :admin)
+                                            .with_default(:guest) }
+  end
+
+  describe 'Connections' do
+    it { expect(subject).to have_many(:myads).dependent(:destroy) }
+  end
+
   describe 'User attributes' do
     subject { User.new }
 
