@@ -34,6 +34,7 @@ describe Myad do
   describe 'scopes' do
     it { expect(Myad.scoped.to_sql).to eq Myad.order("updated_at DESC").to_sql }
   end
+
   describe 'testing state_machine' do
     subject { @myad }
 
