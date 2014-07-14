@@ -1,5 +1,5 @@
 class TypeadsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :typead_params
   before_action :set_search, only: :show
 
   def index
@@ -8,7 +8,8 @@ class TypeadsController < ApplicationController
 
   def show
     @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @myads = @search.result.accessible_by(current_ability)
+                            .paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -37,20 +38,6 @@ class TypeadsController < ApplicationController
   def set_search
     params[:q] ||= {}
     params[:q][:typead_id_eq] = params[:id]  if params[:id]
-
-    if current_user
-      if admin?
-        params[:q][:state_in_or] = Myad.admin_state
-      else
-        params[:q][:g] = []
-        params[:q][:g][0] = {}
-        params[:q][:g][0][:user_id_eq] = current_user.id
-        params[:q][:g][0][:m] = 'or'
-        params[:q][:g][0][:state_eq] = states_ad.index(:published)
-      end
-    else
-      params[:q][:state_eq] = states_ad.index(:published)
-    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

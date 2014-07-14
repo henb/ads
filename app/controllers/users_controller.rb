@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :my_user_params
   before_action :set_search, only: :show
 
   def edit
@@ -7,7 +7,8 @@ class UsersController < ApplicationController
 
   def show
     @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @myads = @search.result.accessible_by(current_ability)
+                            .paginate(page: params[:page], per_page: 10)
   end
 
   def index
@@ -37,12 +38,6 @@ class UsersController < ApplicationController
   def set_search
     params[:q] ||= {}
     params[:q][:user_id_eq] = params[:id]  if params[:id]
-
-    if admin?
-      params[:q][:state_in] = Myad.admin_state
-    else
-      params[:q][:state_eq] = states_ad.index(:published)
-    end
   end
 
   def my_user_params
