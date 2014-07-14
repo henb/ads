@@ -4,13 +4,9 @@ Ads::Application.routes.draw do
 
   resources :myads do
     member do
-      get 'draft'
-      get 'fresh'
-      get 'reject'
-      get 'approve'
-      get 'publish'
-      get 'archive'
-      get 'ban'
+      Myad.state_machine.events.map(&:name).each do |event|
+        eval "get '#{event}'"
+      end
     end
 
     collection do

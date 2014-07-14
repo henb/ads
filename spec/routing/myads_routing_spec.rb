@@ -3,41 +3,52 @@ require 'spec_helper'
 describe MyadsController do
   describe 'resources' do
     describe 'member' do
-      it '#draft' do
-        expect(get: '/myads/1/draft').to route_to(
-          controller: 'myads', action: 'draft', id: '1')
-      end
-      it '#fresh' do
-        expect(get: '/myads/1/fresh').to route_to(
-          controller: 'myads', action: 'fresh', id: '1')
-      end
-      it '#reject' do
-        expect(get: '/myads/1/reject').to route_to(
-          controller: 'myads', action: 'reject', id: '1')
-      end
-      it '#approve' do
-        expect(get: '/myads/1/approve').to route_to(
-          controller: 'myads', action: 'approve', id: '1')
-      end
-      it '#publish' do
-        expect(get: '/myads/1/publish').to route_to(
-          controller: 'myads', action: 'publish', id: '1')
-      end
-      it '#archive' do
-        expect(get: '/myads/1/archive').to route_to(
-          controller: 'myads', action: 'archive', id: '1')
-      end
-      it '#ban' do
-        expect(get: '/myads/1/ban').to route_to(
-          controller: 'myads', action: 'ban', id: '1')
+      Myad.state_machine.events.map(&:name).each do |event|
+        it "#{event}" do
+          expect(get: "/myads/1/#{event}").to route_to(
+            controller: 'myads', action: "#{event}", id: '1')
+        end
       end
     end
 
     describe 'collection' do
-      it '#update_all_state' do
-        expect(post: '/myads/update_all_state').to route_to(
-          controller: 'myads', action: 'update_all_state')
+
+      it '#update_all_draft' do
+        expect(post: '/myads/update_all_draft').to route_to(
+          controller: 'myads', action: 'update_all_draft')
       end
+
+      it '#update_all_fresh' do
+        expect(post: '/myads/update_all_fresh').to route_to(
+          controller: 'myads', action: 'update_all_fresh')
+      end
+
+      it '#update_all_reject' do
+        expect(post: '/myads/update_all_reject').to route_to(
+          controller: 'myads', action: 'update_all_reject')
+      end
+
+      it '#update_all_approve' do
+        expect(post: '/myads/update_all_approve').to route_to(
+          controller: 'myads', action: 'update_all_approve')
+      end
+
+      it '#update_all_publish' do
+        expect(post: '/myads/update_all_publish').to route_to(
+          controller: 'myads', action: 'update_all_publish')
+      end
+
+      it '#update_all_archive' do
+        expect(post: '/myads/update_all_archive').to route_to(
+          controller: 'myads', action: 'update_all_archive')
+      end
+
+      it '#update_all_ban' do
+        expect(post: '/myads/update_all_ban').to route_to(
+          controller: 'myads', action: 'update_all_ban')
+      end
+
+
     end
 
     it '#index' do
