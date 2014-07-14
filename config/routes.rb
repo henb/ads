@@ -4,7 +4,13 @@ Ads::Application.routes.draw do
 
   resources :myads do
     member do
-      get 'event'
+      get 'draft'
+      get 'fresh'
+      get 'reject'
+      get 'approve'
+      get 'publish'
+      get 'archive'
+      get 'ban'
     end
 
     collection do

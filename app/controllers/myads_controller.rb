@@ -1,12 +1,12 @@
 class MyadsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :myad_params
   before_action :gget_type, only: [:new, :create, :edit]
   before_action :params_hash_for_where, only: :index
-  before_action :params_q_for_published, only: :published
 
   def index
     @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @myads = @search.result.accessible_by(current_ability)
+                          .paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -52,19 +52,61 @@ class MyadsController < ApplicationController
     end
   end
 
-  def event
-    event = params[:event].to_sym
-    @myad.send(event) if @myad.state_paths.events.include? event
-
+  # change events
+  def draft
+    @myad.draft
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js
+      format.js   { render "event" }
     end
   end
 
-  def published
-    @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+  def fresh
+    @myad.fresh
+    respond_to do |format|
+      format.html { redirect_to myad_path(@myad, event: true) }
+      format.js   { render "event"}
+    end
+  end
+
+  def reject
+    @myad.reject
+    respond_to do |format|
+      format.html { redirect_to myad_path(@myad, event: true) }
+      format.js   { render "event" }
+    end
+  end
+
+  def approve
+    @myad.approve
+    respond_to do |format|
+      format.html { redirect_to myad_path(@myad, event: true) }
+      format.js   { render "event" }
+    end
+  end
+
+  def publish
+    @myad.publish
+    respond_to do |format|
+      format.html { redirect_to myad_path(@myad, event: true) }
+      format.js   { render "event" }
+    end
+  end
+
+  def archive
+    @myad.archive
+    respond_to do |format|
+      format.html { redirect_to myad_path(@myad, event: true) }
+      format.js { render "event" }
+    end
+  end
+
+  def ban
+    @myad.ban
+    respond_to do |format|
+      format.html { redirect_to myad_path(@myad, event: true) }
+      format.js   { render "event" }
+    end
   end
 
   def update_all_state
@@ -106,33 +148,7 @@ class MyadsController < ApplicationController
 
   def params_hash_for_where
     params[:q] ||= {}
-    if admin?
-      if params[:state]
-        params[:q][:state_eq] = states_ad.index(params[:state].to_sym)
-      else
-        params[:q][:state_in] = Myad.admin_state
-      end
-      return nil
-    end
-
     params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
-    params[:q][:user_id_eq] = current_user.id if current_user
   end
 
-  def params_q_for_published
-    params[:q] ||= {}
-    if current_user
-      if current_user.admin?
-        params[:q][:state_in] = Myad.admin_state
-      else
-        params[:q][:g] = []
-        params[:q][:g][0] = {}
-        params[:q][:g][0][:user_id_eq] = current_user.id
-        params[:q][:g][0][:m] = 'or'
-        params[:q][:g][0][:state_eq] = states_ad.index(:published)
-      end
-    else
-      params[:q][:state_eq] = states_ad.index(:published)
-    end
-  end
 end

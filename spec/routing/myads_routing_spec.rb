@@ -3,9 +3,33 @@ require 'spec_helper'
 describe MyadsController do
   describe 'resources' do
     describe 'member' do
-      it '#event' do
-        expect(get: '/myads/1/event').to route_to(
-          controller: 'myads', action: 'event', id: '1')
+      it '#draft' do
+        expect(get: '/myads/1/draft').to route_to(
+          controller: 'myads', action: 'draft', id: '1')
+      end
+      it '#fresh' do
+        expect(get: '/myads/1/fresh').to route_to(
+          controller: 'myads', action: 'fresh', id: '1')
+      end
+      it '#reject' do
+        expect(get: '/myads/1/reject').to route_to(
+          controller: 'myads', action: 'reject', id: '1')
+      end
+      it '#approve' do
+        expect(get: '/myads/1/approve').to route_to(
+          controller: 'myads', action: 'approve', id: '1')
+      end
+      it '#publish' do
+        expect(get: '/myads/1/publish').to route_to(
+          controller: 'myads', action: 'publish', id: '1')
+      end
+      it '#archive' do
+        expect(get: '/myads/1/archive').to route_to(
+          controller: 'myads', action: 'archive', id: '1')
+      end
+      it '#ban' do
+        expect(get: '/myads/1/ban').to route_to(
+          controller: 'myads', action: 'ban', id: '1')
       end
     end
 
