@@ -29,15 +29,8 @@ class TypeadsController < ApplicationController
   end
 
   def destroy
-    respond_to do |format|
-      if @typead.myads.size.zero?
-        @typead.destroy
-        format.html { redirect_to typeads_url }
-      else
-        flash[:danger] = 'Typead not empty!'
-        format.html { redirect_to @typead }
-      end
-    end
+    @typead.destroy
+    redirect_to typeads_url
   end
 
   private
