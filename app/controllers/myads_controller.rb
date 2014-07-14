@@ -57,7 +57,7 @@ class MyadsController < ApplicationController
     @myad.draft
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render "event" }
+      format.js   { render 'event' }
     end
   end
 
@@ -65,7 +65,7 @@ class MyadsController < ApplicationController
     @myad.fresh
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render "event"}
+      format.js   { render 'event' }
     end
   end
 
@@ -73,7 +73,7 @@ class MyadsController < ApplicationController
     @myad.reject
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render "event" }
+      format.js   { render 'event' }
     end
   end
 
@@ -81,7 +81,7 @@ class MyadsController < ApplicationController
     @myad.approve
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render "event" }
+      format.js   { render 'event' }
     end
   end
 
@@ -89,7 +89,7 @@ class MyadsController < ApplicationController
     @myad.publish
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render "event" }
+      format.js   { render 'event' }
     end
   end
 
@@ -97,7 +97,7 @@ class MyadsController < ApplicationController
     @myad.archive
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js { render "event" }
+      format.js { render 'event' }
     end
   end
 
@@ -105,7 +105,7 @@ class MyadsController < ApplicationController
     @myad.ban
     respond_to do |format|
       format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render "event" }
+      format.js   { render 'event' }
     end
   end
 
@@ -150,5 +150,4 @@ class MyadsController < ApplicationController
     params[:q] ||= {}
     params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
   end
-
 end

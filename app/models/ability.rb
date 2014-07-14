@@ -5,7 +5,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     alias_action *Myad.state_machine.events.map(&:name), to: :events
-    #alias_action *Myad.state_machine.events.map(&:name), to: :update_all_state
+    # alias_action *Myad.state_machine.events.map(&:name), to: :update_all_state
 
     can :read, Typead
     can :read, Myad, state: 4 # state_name: :published

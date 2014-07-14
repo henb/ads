@@ -11,7 +11,7 @@ module MyadsHelper
     end
   end
 
-  def link_to_state(state, ad, hash={})
-    link_to(state.capitalize, {controller: "myads", action: state.to_s, id: ad},hash)
+  def link_to_state(state, ad, hash = {})
+    link_to(state.capitalize, { controller: 'myads', action: state.to_s, id: ad }, hash)
   end
 end
