@@ -2,49 +2,32 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
     user ||= User.new # guest user (not logged in)
 
-    # guest      cannot :index, Myad
     can :read, Typead
-    can :read, Myad do |ad|
-      ad.published? || ad.user == user
-    end
-
+    can :read, Myad, state_name: :published, user_id: user.id
     cannot :index, Myad
-
     can :published, Myad
 
     if user.user?
-      can :read, User
-      can :read,   Myad
+      can :read, [User, Myad]
       can :create, Myad
-      can :update, Myad do |ad|
-        ad.drafting? && ad.user == user
-      end
-
-      can :destroy, Myad do |ad|
-        ad.user == user
-      end
-
+      can :update, Myad, state_name: :drafting, user_id: user.id
+      can :destroy, Myad, user_id: user.id
       cannot :destroy, Myad do |ad|
-        ad.banned? || ad.rejected?
+        ad.state_name.in? [:banned, :rejected]
       end
-
       can :event, Myad do |ad|
         !(ad.state_events & Myad.user_events).empty?
       end
       can :update_all_state, Myad
     elsif user.admin?
 
-      can :manage, User
+      can :manage, [User, Typead]
       can :destroy, :all
-      can :manage, Typead
       cannot [:create, :update], Myad
-
       can :read, Myad do |ad|
-        ad.freshing? || ad.approved? || ad.banned? ||  ad.rejected?
+        ad.state_name.in? [:freshing, :approved, :banned, :rejected]
       end
       can :event, Myad do |ad|
         !(ad.state_events & Myad.admin_events).empty?
