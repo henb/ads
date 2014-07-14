@@ -4,8 +4,6 @@ class Myad < ActiveRecord::Base
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images, reject_if: ->(image) { image[:url].blank? }, allow_destroy: true
 
-  default_scope -> { order('updated_at DESC') }
-
   validates :typead_id, presence: true
   validates :title, presence: true, length: { in: 10..100 }
   validates :description, presence: true, length: { maximum: 500 }
