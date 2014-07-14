@@ -1,8 +1,8 @@
-= form_tag update_all_state_myads_path, remote:true do 
+= form_tag update_all_state_myads_path, remote:true do
     - if current_user
       h3 = "Select state for update"
       = select_tag :event, options_for_select(events_ad_for_select_tag), class:"btn"
-      |   
+      |
       = submit_tag "Update state", class:"btn btn-success"
       hr
     table.table
