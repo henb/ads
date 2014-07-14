@@ -14,7 +14,6 @@ Ads::Application.routes.draw do
     end
 
     collection do
-      get 'published'
       post 'update_all_state'
     end
   end

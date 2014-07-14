@@ -34,11 +34,6 @@ describe MyadsController do
     end
 
     describe 'collection' do
-      it '#published' do
-        expect(get: '/myads/published').to route_to(
-          controller: 'myads', action: 'published')
-      end
-
       it '#update_all_state' do
         expect(post: '/myads/update_all_state').to route_to(
           controller: 'myads', action: 'update_all_state')
