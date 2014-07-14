@@ -53,61 +53,20 @@ class MyadsController < ApplicationController
   end
 
   # change events
-  def draft
-    @myad.draft
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render 'event' }
+  def self.attr_event(*events)
+    events.each do |event|
+      define_method("#{event}") do
+        @myad.send(event)
+        respond_to do |format|
+          format.html { redirect_to myad_path(@myad, event: true) }
+          format.js   { render 'event' }
+        end
+      end
     end
   end
 
-  def fresh
-    @myad.fresh
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render 'event' }
-    end
-  end
+  attr_event *Myad.state_machine.events.map(&:name)
 
-  def reject
-    @myad.reject
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render 'event' }
-    end
-  end
-
-  def approve
-    @myad.approve
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render 'event' }
-    end
-  end
-
-  def publish
-    @myad.publish
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render 'event' }
-    end
-  end
-
-  def archive
-    @myad.archive
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js { render 'event' }
-    end
-  end
-
-  def ban
-    @myad.ban
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js   { render 'event' }
-    end
-  end
 
   def update_all_state
     myad_ids = params[:myad_ids]
