@@ -24,12 +24,16 @@ class TypeadsController < ApplicationController
   end
 
   def destroy
-    @typead.destroy
-    redirect_to typeads_url
+    if @typead.destroy
+      redirect_to typeads_url
+      flash[:success] = 'Typead was successfully deleted.'
+    else
+      redirect_to @typead
+      flash[:danger] = 'Typead not empty!'
+    end
   end
 
   private
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def typead_params
     params.require(:typead).permit(:name, :description)
