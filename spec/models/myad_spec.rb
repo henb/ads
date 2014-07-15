@@ -1,17 +1,6 @@
 require 'spec_helper'
 
 describe Myad do
-  before :all do
-    @typead = create :typead
-    @user   = create :user_user
-    @myad   = build :myad
-  end
-
-  it 'create Myad' do
-    @myad.typead = @typead
-    @myad.user = @user
-    expect(@myad.save).to be
-  end
 
   describe 'connections' do
     it { expect(subject).to have_many(:images).dependent(:destroy) }
@@ -32,7 +21,7 @@ describe Myad do
   end
 
   describe 'testing state_machine' do
-    subject { @myad }
+    subject { build :myad }
 
     describe 'default state for myad' do
       it { expect(subject.drafting?).to be }

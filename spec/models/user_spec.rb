@@ -11,7 +11,7 @@ describe User do
   end
 
   describe 'guest & user' do
-    subject { build :user_guest }
+    subject { build :guest_user }
 
     it 'verification role' do
       expect(subject.user?).not_to be
