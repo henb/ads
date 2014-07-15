@@ -1,24 +1,18 @@
 class TypeadsController < ApplicationController
   load_and_authorize_resource param_method: :typead_params
-  before_action :set_search, only: :show
 
   def index
-    @typeads = Typead.all
   end
 
   def show
-    @search = Myad.search(params[:q])
-    @myads = @search.result.accessible_by(current_ability)
-                            .paginate(page: params[:page], per_page: 10)
+    @search = @typead.myads.search(params[:q])
+    @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   def new
-    @typead = Typead.new
   end
 
   def create
-    @typead = Typead.new(typead_params)
-
     respond_to do |format|
       if @typead.save
         flash[:success] = 'Typead was successfully created.'
@@ -35,10 +29,6 @@ class TypeadsController < ApplicationController
   end
 
   private
-  def set_search
-    params[:q] ||= {}
-    params[:q][:typead_id_eq] = params[:id]  if params[:id]
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def typead_params

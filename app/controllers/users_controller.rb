@@ -1,18 +1,16 @@
 class UsersController < ApplicationController
   load_and_authorize_resource param_method: :my_user_params
-  before_action :set_search, only: :show
 
   def edit
   end
 
   def show
-    @search = Myad.search(params[:q])
-    @myads = @search.result.accessible_by(current_ability)
-                            .paginate(page: params[:page], per_page: 10)
+    @search = @user.myads.search(params[:q])
+    @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   def index
-    @search = User.search(params[:q])
+    @search = @users.search(params[:q])
     @users = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
@@ -35,10 +33,6 @@ class UsersController < ApplicationController
   end
 
   private
-  def set_search
-    params[:q] ||= {}
-    params[:q][:user_id_eq] = params[:id]  if params[:id]
-  end
 
   def my_user_params
     params.require(:user)

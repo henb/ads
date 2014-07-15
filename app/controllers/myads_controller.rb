@@ -4,25 +4,21 @@ class MyadsController < ApplicationController
   before_action :params_hash_for_where, only: :index
 
   def index
-    @search = Myad.search(params[:q])
-    @myads = @search.result.accessible_by(current_ability)
-                          .paginate(page: params[:page], per_page: 10)
+    @search = @myads.search(params[:q])
+    @myads = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   def show
   end
 
   def new
-    @myad = Myad.new
   end
 
   def edit
   end
 
   def create
-    @myad = Myad.new(myad_params)
     @myad.user = current_user
-
     respond_to do |format|
       if @myad.save
         flash[:success] = 'Myad was successfully created.'
