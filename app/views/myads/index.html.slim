@@ -5,6 +5,5 @@ h1 Listing ads
 = render "myads/table_myads", myads: @myads, search: @search
 
 br
-
 - if can? :create, Myad
   = link_to'New Myad', new_myad_path, class:"btn btn-primary"

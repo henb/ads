@@ -30,6 +30,6 @@ module ApplicationHelper
   end
 
   def help_for_serch_form
-    @search = Myad.search
+    search = Myad.search
   end
 end
