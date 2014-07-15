@@ -31,10 +31,6 @@ describe Myad do
     it { expect(subject).to accept_nested_attributes_for(:images).allow_destroy(true) }
   end
 
-  describe 'scopes' do
-    it { expect(Myad.scoped.to_sql).to eq Myad.order('updated_at DESC').to_sql }
-  end
-
   describe 'testing state_machine' do
     subject { @myad }
 

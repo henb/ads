@@ -11,44 +11,8 @@ describe MyadsController do
       end
     end
 
-    describe 'collection' do
-
-      it '#update_all_draft' do
-        expect(post: '/myads/update_all_draft').to route_to(
-          controller: 'myads', action: 'update_all_draft')
-      end
-
-      it '#update_all_fresh' do
-        expect(post: '/myads/update_all_fresh').to route_to(
-          controller: 'myads', action: 'update_all_fresh')
-      end
-
-      it '#update_all_reject' do
-        expect(post: '/myads/update_all_reject').to route_to(
-          controller: 'myads', action: 'update_all_reject')
-      end
-
-      it '#update_all_approve' do
-        expect(post: '/myads/update_all_approve').to route_to(
-          controller: 'myads', action: 'update_all_approve')
-      end
-
-      it '#update_all_publish' do
-        expect(post: '/myads/update_all_publish').to route_to(
-          controller: 'myads', action: 'update_all_publish')
-      end
-
-      it '#update_all_archive' do
-        expect(post: '/myads/update_all_archive').to route_to(
-          controller: 'myads', action: 'update_all_archive')
-      end
-
-      it '#update_all_ban' do
-        expect(post: '/myads/update_all_ban').to route_to(
-          controller: 'myads', action: 'update_all_ban')
-      end
-
-    end
+    # describe 'collection' do
+    # end
 
     it '#index' do
       expect(get: '/myads').to route_to(
