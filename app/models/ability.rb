@@ -6,7 +6,7 @@ class Ability
 
     alias_action *Myad.state_machine.events.map(&:name), to: :events
     # alias_action *Myad.state_machine.events.map(&:name), to: :update_all_state
-
+    can :update_all_approve, Myad
     can :read, Typead
     can :read, Myad, state: 4 # state_name: :published
     can :published, Myad
