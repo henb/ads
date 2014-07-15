@@ -1,7 +1,6 @@
 class MyadsController < ApplicationController
   load_and_authorize_resource param_method: :myad_params
   before_action :gget_type, only: [:new, :create, :edit]
-  before_action :params_hash_for_where, only: :index
 
   def index
     @search = @myads.search(params[:q])
@@ -99,10 +98,5 @@ class MyadsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def myad_params
     params.require(:myad).permit(:title, :description, :typead_id, images_attributes: [:id, :url, :_destroy])
-  end
-
-  def params_hash_for_where
-    params[:q] ||= {}
-    params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
   end
 end
