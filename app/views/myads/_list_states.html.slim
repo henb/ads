@@ -2,6 +2,6 @@
   hr
   ul.nav.nav-pills
     li = link_to  "All", myads_path
-    - (admin? ? admin_states_ad : states_ad).each_with_index do |state_name, state_id|
-        li = link_to state_name.capitalize, myads_path('q[state_eq]' => state_id)
+    - (admin? ? admin_states_ad : states_ad).each do |state_name|
+        li = link_to state_name.capitalize, myads_path('q[state_eq]' => states_hash[state_name])
 hr

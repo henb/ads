@@ -21,6 +21,10 @@ module ApplicationHelper
     Myad.state_machine.states.map &:name
   end
 
+  def states_hash
+    states_ad.each_with_index.map { |e, i| [e, i] }.to_h
+  end
+
   def flash_key(key)
     %w(info warning danger success default).include?(key.to_s) ? key : 'info'
   end
