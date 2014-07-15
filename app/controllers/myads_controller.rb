@@ -62,7 +62,6 @@ class MyadsController < ApplicationController
 
   attr_event *Myad.state_machine.events.map(&:name)
 
-
   def update_all_state
     myad_ids = params[:myad_ids]
     event = params[:event].to_sym

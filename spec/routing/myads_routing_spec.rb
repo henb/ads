@@ -48,7 +48,6 @@ describe MyadsController do
           controller: 'myads', action: 'update_all_ban')
       end
 
-
     end
 
     it '#index' do
