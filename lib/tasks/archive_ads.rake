@@ -1,10 +1,10 @@
-namespace :db do
+namespace :ads do
   task :archive => :environment do
     count = Myad.updete_published
     puts "#{count} #{'record'.pluralize(count)} added to the archive!"
   end
 
-  task :approve => :environment do
+  task :publish => :environment do
     count = Myad.update_ads
     puts "#{count} #{'record'.pluralize(count)} published!"
   end
