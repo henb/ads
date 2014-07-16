@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Typead do
 
-  describe 'connections' do
+  context 'connections' do
     it { expect(subject).to have_many(:myads).dependent(:restrict_with_error) }
   end
 
-  describe 'validates' do
+  context 'validates' do
     it { expect(subject).to validate_presence_of(:name) }
     it { expect(subject).to validate_presence_of(:description) }
 

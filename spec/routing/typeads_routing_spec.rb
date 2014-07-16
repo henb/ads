@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TypeadsController do
-  describe 'resources' do
+  context 'resources' do
     it '#index' do
       expect(get: '/typeads').to route_to(
           controller: 'typeads', action: 'index')

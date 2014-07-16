@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  describe 'resources' do
+  context 'resources' do
     it '#index' do
       expect(get: '/users').to route_to(
           controller: 'users', action: 'index')

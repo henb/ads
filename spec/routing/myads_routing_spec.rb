@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe MyadsController do
-  describe 'resources' do
-    describe 'member' do
+  context 'resources' do
+    context 'member' do
       Myad.state_machine.events.map(&:name).each do |event|
         it "#{event}" do
           expect(get: "/myads/1/#{event}").to route_to(
