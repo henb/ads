@@ -7,10 +7,10 @@
       hr
     table.table
       thead
-        tr
+        tr#sort_list
           th = sort_link(search, :id) if current_user
           th = sort_link(search, :title)
-          th = sort_link(search, :user)
+          th = sort_link(search, :user_id)
           th = sort_link(search, :typead_name)
           th = sort_link(search, :state)
           th = sort_link(search, :actions)

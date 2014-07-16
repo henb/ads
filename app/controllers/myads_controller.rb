@@ -6,7 +6,7 @@ class MyadsController < ApplicationController
 
   def index
     @search = @myads.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @myads = @search.result.paginate(page: params[:page], per_page: params[:per_page])
   end
 
   def show
