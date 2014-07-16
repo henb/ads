@@ -8,13 +8,11 @@ class Ability
     # alias_action *Myad.state_machine.events.map(&:name), to: :update_all_state
     can :read, Typead
     can :read, Myad, state: 4 # state_name: :published
-    can :published, Myad
-    can :fresh, Myad
     if user.user?
       can :read, User
       can :read, Myad, user_id: user.id
       can :create, Myad
-      can [:edit, :update], Myad, state_name: :drafting
+      can :update, Myad, state_name: :drafting
       can :destroy, Myad, user_id: user.id
       cannot :destroy, Myad, state_name: [:banned, :rejected]
       can :events, Myad do |ad|
