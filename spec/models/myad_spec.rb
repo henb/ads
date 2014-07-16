@@ -29,24 +29,24 @@ describe Myad do
     describe '#events' do
       it 'returns all events for myad' do
         expect(myad.state_paths.events).to include(:fresh,
-                                                      :reject,
-                                                      :draft,
-                                                      :approve,
-                                                      :publish,
-                                                      :archive,
-                                                      :ban)
+                                                   :reject,
+                                                   :draft,
+                                                   :approve,
+                                                   :publish,
+                                                   :archive,
+                                                   :ban)
       end
     end
 
     describe '#state' do
       it 'returns all states for myad' do
         expect(myad.state_paths.to_states).to include(:freshing,
-                                                         :rejected,
-                                                         :drafting,
-                                                         :approved,
-                                                         :published,
-                                                         :archives,
-                                                         :banned)
+                                                      :rejected,
+                                                      :drafting,
+                                                      :approved,
+                                                      :published,
+                                                      :archives,
+                                                      :banned)
       end
     end
   end
@@ -70,13 +70,13 @@ describe Myad do
     describe '.user_events' do
       it 'returns events available for user' do
         expect(subject.user_events).to include(:draft,
-                                              :fresh)
+                                               :fresh)
       end
 
       it "doesn't return admin's events" do
         expect(subject.user_events).not_to include(:reject,
-                                                  :approve,
-                                                  :ban)
+                                                   :approve,
+                                                   :ban)
       end
     end
 

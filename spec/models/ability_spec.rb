@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability do
-  subject(:ability){ Ability.new(user) }
+  subject(:ability) { Ability.new(user) }
   let(:user) { nil }
 
   context 'when is a guest' do
@@ -43,8 +43,8 @@ describe Ability do
     end
 
     it 'cannot destroy Myad [:banned, :rejected]' do
-      expect(ability).not_to be_able_to :destroy, Myad.new(user: user, state:2)
-      expect(ability).not_to be_able_to :destroy, Myad.new(user: user, state:6)
+      expect(ability).not_to be_able_to :destroy, Myad.new(user: user, state: 2)
+      expect(ability).not_to be_able_to :destroy, Myad.new(user: user, state: 6)
     end
 
     it 'destroy Myad belong to user' do
