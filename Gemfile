@@ -40,6 +40,8 @@ group :test do
   gem 'capybara'
 end
 
+gem "spring-commands-rspec", group: [:development, :test]
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

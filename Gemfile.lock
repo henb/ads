@@ -177,6 +177,9 @@ GEM
       activesupport (>= 3.0, < 4.2)
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
+    spring (1.1.3)
+    spring-commands-rspec (1.0.2)
+      spring (>= 0.9.1)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -239,6 +242,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   slim-rails
+  spring-commands-rspec
   state_machine
   uglifier (>= 1.3.0)
   whenever
