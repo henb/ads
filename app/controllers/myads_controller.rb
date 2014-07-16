@@ -1,6 +1,8 @@
 class MyadsController < ApplicationController
+  respond_to :html, only: [:create, :update]
+  respond_to :js, only: :update_all_state
   load_and_authorize_resource param_method: :myad_params
-  before_action :gget_type, only: [:new, :create, :edit]
+  before_action :gget_type, only: [:new, :create, :edit, :update]
 
   def index
     @search = @myads.search(params[:q])
@@ -18,31 +20,19 @@ class MyadsController < ApplicationController
 
   def create
     @myad.user = current_user
-    respond_to do |format|
-      if @myad.save
-        flash[:success] = 'Myad was successfully created.'
-        format.html { redirect_to @myad }
-      else
-        format.html { render action: 'new' }
-      end
-    end
+    flash[:success] = 'Myad was successfully created.' if @myad.save
+    respond_with @myad
   end
 
   def update
-    respond_to do |format|
-      if @myad.update(myad_params)
-        flash[:success] = 'Myad was successfully updated.'
-        format.html { redirect_to @myad }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
+    flash[:success] = 'Myad was successfully updated.' if @myad.update(myad_params)
+    respond_with @myad
   end
 
   def destroy
     @myad.destroy
-    respond_to do |format|
-      format.html { redirect_to myads_url }
+    respond_with do |format|
+      format.html { redirect_to myads_path }
       format.js
     end
   end
@@ -52,7 +42,7 @@ class MyadsController < ApplicationController
     events.each do |event|
       define_method("#{event}") do
         @myad.send(event)
-        respond_to do |format|
+        respond_with do |format|
           format.html { redirect_to myad_path(@myad, event: true) }
           format.js   { render 'event' }
         end
@@ -81,10 +71,6 @@ class MyadsController < ApplicationController
       @flash[:success] = "#{@event_myads.size} ads was successfully updated."
     else
       @flash[:danger] = 'Select an Ad!'
-    end
-
-    respond_to do |format|
-      format.js
     end
   end
 

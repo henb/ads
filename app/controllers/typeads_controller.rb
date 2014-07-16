@@ -1,6 +1,6 @@
 class TypeadsController < ApplicationController
+  respond_to :html, only: [:create]
   load_and_authorize_resource param_method: :typead_params
-
   def index
   end
 
@@ -13,14 +13,8 @@ class TypeadsController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      if @typead.save
-        flash[:success] = 'Typead was successfully created.'
-        format.html { redirect_to @typead }
-      else
-        format.html { render action: 'new' }
-      end
-    end
+    flash[:success] = 'Typead was successfully created.' if @typead.save
+    respond_with @typead
   end
 
   def destroy

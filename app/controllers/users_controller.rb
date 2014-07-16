@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  respond_to :html, only: [:update]
   load_and_authorize_resource param_method: :my_user_params
 
   def edit
@@ -15,21 +16,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if flash[:success] = @user.update(my_user_params)
-        flash[:success] = 'User was successfully updated.'
-        format.html { redirect_to @user }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
+    flash[:success] = 'User was successfully updated.' if flash[:success] = @user.update(my_user_params)
+    respond_with @user
   end
 
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_path }
-    end
+    redirect_to users_path
   end
 
   private
