@@ -40,7 +40,11 @@ group :test do
   gem 'capybara'
 end
 
-gem "spring-commands-rspec", group: [:development, :test]
+group :development, :test do
+  gem "spring-commands-rspec"
+  gem 'guard-rspec', require: false
+end
+
 
 group :development do
   gem 'better_errors'
