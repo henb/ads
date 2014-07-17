@@ -9,6 +9,8 @@ class Myad < ActiveRecord::Base
   validates :description, presence: true, length: { maximum: 500 }
   validates :user_id, presence: true
 
+  scope :including, -> { includes(:typead, :images, :user) }
+
   state_machine initial: :drafting do
     state :drafting,  value: 0
     state :freshing,  value: 1

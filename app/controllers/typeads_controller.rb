@@ -6,7 +6,7 @@ class TypeadsController < ApplicationController
 
   def show
     @search = @typead.myads.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @myads = @search.result.including.paginate(page: params[:page], per_page: 10)
   end
 
   def new
