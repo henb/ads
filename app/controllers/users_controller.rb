@@ -1,49 +1,31 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_search, only: :show
+  respond_to :html, only: [:update]
+  load_and_authorize_resource param_method: :my_user_params
 
   def edit
   end
 
   def show
-    @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @search = @user.myads.search(params[:q])
+    @myads = @search.result.including.paginate(page: params[:page], per_page: 10)
   end
 
   def index
-    @search = User.search(params[:q])
+    @search = @users.search(params[:q])
     @users = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   def update
-    respond_to do |format|
-      if flash[:success] = @user.update(my_user_params)
-        flash[:success] = 'User was successfully updated.'
-        format.html { redirect_to @user }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
+    flash[:success] = 'User was successfully updated.' if flash[:success] = @user.update(my_user_params)
+    respond_with @user
   end
 
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_path }
-    end
+    redirect_to users_path
   end
 
   private
-  def set_search
-    params[:q] ||= {}
-    params[:q][:user_id_eq] = params[:id]  if params[:id]
-
-    if admin?
-      params[:q][:state_in] = Myad.admin_state
-    else
-      params[:q][:state_eq] = states_ad.index(:published)
-    end
-  end
 
   def my_user_params
     params.require(:user)

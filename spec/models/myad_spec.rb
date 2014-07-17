@@ -1,25 +1,14 @@
 require 'spec_helper'
 
 describe Myad do
-  before :all do
-    @typead = create :typead
-    @user   = create :user_user
-    @myad   = build :myad
-  end
 
-  it 'create Myad' do
-    @myad.typead = @typead
-    @myad.user = @user
-    expect(@myad.save).to be
-  end
-
-  describe 'connections' do
+  context 'connections' do
     it { expect(subject).to have_many(:images).dependent(:destroy) }
     it { expect(subject).to belong_to(:typead) }
     it { expect(subject).to belong_to(:user) }
   end
 
-  describe 'validates' do
+  context 'validates' do
     it { expect(subject).to validate_presence_of(:title) }
     it { expect(subject).to validate_presence_of(:typead_id) }
     it { expect(subject).to validate_presence_of(:user_id) }
@@ -31,51 +20,63 @@ describe Myad do
     it { expect(subject).to accept_nested_attributes_for(:images).allow_destroy(true) }
   end
 
-  describe 'scopes' do
-    it { expect(Myad.scoped.to_sql).to eq Myad.order('updated_at DESC').to_sql }
-  end
-
-  describe 'testing state_machine' do
-    subject { @myad }
+  context 'testing state_machine' do
+    let(:myad) { build :myad }
 
     describe 'default state for myad' do
-      it { expect(subject.drafting?).to be }
+      it { expect(myad.drafting?).to be }
     end
     describe '#events' do
       it 'returns all events for myad' do
-        expect(subject.state_paths.events).to include(:fresh,
-                                                      :reject, :draft, :approve, :publish, :archive, :ban)
+        expect(myad.state_paths.events).to include(:fresh,
+                                                   :reject,
+                                                   :draft,
+                                                   :approve,
+                                                   :publish,
+                                                   :archive,
+                                                   :ban)
       end
     end
 
     describe '#state' do
       it 'returns all states for myad' do
-        expect(subject.state_paths.to_states).to include(:freshing,
-                                                         :rejected, :drafting, :approved, :published, :archives, :banned)
+        expect(myad.state_paths.to_states).to include(:freshing,
+                                                      :rejected,
+                                                      :drafting,
+                                                      :approved,
+                                                      :published,
+                                                      :archives,
+                                                      :banned)
       end
     end
   end
 
-  describe 'class methods' do
+  context 'class methods' do
     subject { Myad }
 
     describe '.admin_events' do
       it 'returns events available for admin' do
-        expect(subject.admin_events).to include(:reject, :approve, :ban)
+        expect(subject.admin_events).to include(:reject,
+                                                :approve,
+                                                :ban)
       end
 
       it "doesn't return user's events" do
-        expect(subject.admin_events).not_to include(:draft, :fresh)
+        expect(subject.admin_events).not_to include(:draft,
+                                                    :fresh)
       end
     end
 
     describe '.user_events' do
       it 'returns events available for user' do
-        expect(subject.user_events).to include(:draft, :fresh)
+        expect(subject.user_events).to include(:draft,
+                                               :fresh)
       end
 
       it "doesn't return admin's events" do
-        expect(subject.user_events).not_to include(:reject, :approve, :ban)
+        expect(subject.user_events).not_to include(:reject,
+                                                   :approve,
+                                                   :ban)
       end
     end
 

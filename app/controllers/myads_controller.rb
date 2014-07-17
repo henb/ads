@@ -1,71 +1,56 @@
 class MyadsController < ApplicationController
-  load_and_authorize_resource
-  before_action :gget_type, only: [:new, :create, :edit]
-  before_action :params_hash_for_where, only: :index
-  before_action :params_q_for_published, only: :published
+  respond_to :html, only: [:create, :update]
+  respond_to :js, only: :update_all_state
+  load_and_authorize_resource param_method: :myad_params
+  before_action :gget_type, only: [:new, :create, :edit, :update]
 
   def index
-    @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
+    @search = @myads.search(params[:q])
+    @myads = @search.result.including.paginate(page: params[:page], per_page: params[:per_page])
   end
 
   def show
   end
 
   def new
-    @myad = Myad.new
   end
 
   def edit
   end
 
   def create
-    @myad = Myad.new(myad_params)
     @myad.user = current_user
-
-    respond_to do |format|
-      if @myad.save
-        flash[:success] = 'Myad was successfully created.'
-        format.html { redirect_to @myad }
-      else
-        format.html { render action: 'new' }
-      end
-    end
+    flash[:success] = 'Myad was successfully created.' if @myad.save
+    respond_with @myad
   end
 
   def update
-    respond_to do |format|
-      if @myad.update(myad_params)
-        flash[:success] = 'Myad was successfully updated.'
-        format.html { redirect_to @myad }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
+    flash[:success] = 'Myad was successfully updated.' if @myad.update(myad_params)
+    respond_with @myad
   end
 
   def destroy
     @myad.destroy
-    respond_to do |format|
-      format.html { redirect_to myads_url }
+    respond_with do |format|
+      format.html { redirect_to myads_path }
       format.js
     end
   end
 
-  def event
-    event = params[:event].to_sym
-    @myad.send(event) if @myad.state_paths.events.include? event
-
-    respond_to do |format|
-      format.html { redirect_to myad_path(@myad, event: true) }
-      format.js
+  # change events
+  def self.attr_event(*events)
+    events.each do |event|
+      define_method("#{event}") do
+        @myad.send(event)
+        respond_with do |format|
+          format.html { redirect_to myad_path(@myad, event: true) }
+          format.js   { render 'event' }
+        end
+      end
     end
   end
 
-  def published
-    @search = Myad.search(params[:q])
-    @myads = @search.result.paginate(page: params[:page], per_page: 10)
-  end
+  attr_event *Myad.state_machine.events.map(&:name)
 
   def update_all_state
     myad_ids = params[:myad_ids]
@@ -87,10 +72,6 @@ class MyadsController < ApplicationController
     else
       @flash[:danger] = 'Select an Ad!'
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   private
@@ -102,37 +83,5 @@ class MyadsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def myad_params
     params.require(:myad).permit(:title, :description, :typead_id, images_attributes: [:id, :url, :_destroy])
-  end
-
-  def params_hash_for_where
-    params[:q] ||= {}
-    if admin?
-      if params[:state]
-        params[:q][:state_eq] = states_ad.index(params[:state].to_sym)
-      else
-        params[:q][:state_in] = Myad.admin_state
-      end
-      return nil
-    end
-
-    params[:q][:state_eq] = states_ad.index(params[:state].to_sym) if params[:state]
-    params[:q][:user_id_eq] = current_user.id if current_user
-  end
-
-  def params_q_for_published
-    params[:q] ||= {}
-    if current_user
-      if current_user.admin?
-        params[:q][:state_in] = Myad.admin_state
-      else
-        params[:q][:g] = []
-        params[:q][:g][0] = {}
-        params[:q][:g][0][:user_id_eq] = current_user.id
-        params[:q][:g][0][:m] = 'or'
-        params[:q][:g][0][:state_eq] = states_ad.index(:published)
-      end
-    else
-      params[:q][:state_eq] = states_ad.index(:published)
-    end
   end
 end

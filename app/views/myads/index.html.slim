@@ -1,21 +1,9 @@
 h1 Listing ads
 
-
-hr
-  ul.nav.nav-pills
-    li = link_to  "All", myads_path
-    - if admin?
-      - admin_states_ad.each do |state_name|
-        li = link_to state_name.capitalize, myads_path(state:state_name)
-    - else
-      - states_ad.each do |state_name|
-        li = link_to state_name.capitalize, myads_path(state:state_name)
-hr
-
-= render partial:"myads/table_myads", locals:{myads: @myads,search:@search}
+= render "myads/search_myads", search: @search
+= render "myads/list_states"
+= render "myads/table_myads", myads: @myads, search: @search
 
 br
-
 - if can? :create, Myad
-  - unless published_only
-    = link_to'New Myad', new_myad_path, class:"btn btn-primary"
+  = link_to'New Myad', new_myad_path, class:"btn btn-primary"

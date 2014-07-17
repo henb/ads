@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe User do
 
-  describe 'Enumerize' do
+  context 'Enumerize' do
     it { expect(subject).to enumerize(:role).in(:user, :admin) }
   end
 
-  describe 'Connections' do
+  context 'Connections' do
     it { expect(subject).to have_many(:myads).dependent(:destroy) }
   end
 
-  describe 'guest & user' do
-    subject { build :user_guest }
+  context 'guest & user roles' do
+    subject { build :guest_user }
 
     it 'verification role' do
       expect(subject.user?).not_to be
@@ -23,11 +23,11 @@ describe User do
     end
   end
 
-  describe 'admin' do
-    subject { create :admin_user }
+  context 'admin role' do
+    subject { build :admin_user }
 
     it 'verification role' do
-      expect(subject.admin?).to be
+      expect(subject.user?).not_to be
     end
   end
 end

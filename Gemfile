@@ -37,4 +37,16 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
+  gem 'capybara'
+end
+
+group :development, :test do
+  gem "spring-commands-rspec"
+  gem 'guard-rspec', require: false
+end
+
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end

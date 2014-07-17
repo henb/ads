@@ -4,11 +4,12 @@ Ads::Application.routes.draw do
 
   resources :myads do
     member do
-      get 'event'
+      Myad.state_machine.events.map(&:name).each do |event|
+        eval "get '#{event}'"
+      end
     end
 
     collection do
-      get 'published'
       post 'update_all_state'
     end
   end

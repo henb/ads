@@ -1,15 +1,9 @@
-h1 Listing ads
-p
-= search_form_for(@search,url:published_myads_path)do |f|
+= search_form_for(search,url:myads_path)do |f|
   = f.label :title
   = f.search_field :title_cont, class:"search_form"
 
   = f.label :description
   = f.search_field :description_cont, class:"search_form"
+  = f.input :state_eq, as: :hidden
   br
   = f.submit class:"search_form"
-
-hr
-
-p
-  = render partial:"myads/table_myads", locals:{myads: @myads,search:@search}

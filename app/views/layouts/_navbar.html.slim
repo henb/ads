@@ -1,7 +1,7 @@
-.navbar.navbar-inverse.navbar-fixed-top role="navigation" 
+.navbar.navbar-inverse.navbar-fixed-top role="navigation"
   .container
     .navbar-header
-      button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button" 
+      button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button"
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
@@ -14,18 +14,12 @@
         li
           - if can? :read, User
             = link_to "Users", users_path
-      
       ul.nav.navbar-nav.navbar-right
         li
-          - if can? :create, Myad
-            - if !admin?
-              = link_to "My ADS", myads_path
-        li
-          - unless admin?
-              = link_to "Published ADS", published_myads_path
-        - if user_signed_in? 
+            = link_to "ADS", myads_path
+        - if user_signed_in?
           li.dropdown
-            a.dropdown-toggle data-toggle="dropdown" href="#" 
+            a.dropdown-toggle data-toggle="dropdown" href="#"
               | #{current_user.email}
               b.caret
             ul.dropdown-menu
@@ -41,7 +35,7 @@
             = link_to "Sign Up", new_user_registration_path
           li
             = link_to "Sign In", new_user_session_path
-      = search_form_for(help_for_serch_form,url:published_myads_path,class:"sform") do |f|
+      = search_form_for(help_for_serch_form,url:myads_path,class:"sform") do |f|
         = f.search_field :title_cont, class:"search_form", placeholder:"Search..."
 
 #user_nav

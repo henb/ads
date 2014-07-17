@@ -1,25 +1,18 @@
 require 'spec_helper'
 
 describe MyadsController do
-  describe 'resources' do
-    describe 'member' do
-      it '#event' do
-        expect(get: '/myads/1/event').to route_to(
-          controller: 'myads', action: 'event', id: '1')
+  context 'resources' do
+    context 'member' do
+      Myad.state_machine.events.map(&:name).each do |event|
+        it "#{event}" do
+          expect(get: "/myads/1/#{event}").to route_to(
+            controller: 'myads', action: "#{event}", id: '1')
+        end
       end
     end
 
-    describe 'collection' do
-      it '#published' do
-        expect(get: '/myads/published').to route_to(
-          controller: 'myads', action: 'published')
-      end
-
-      it '#update_all_state' do
-        expect(post: '/myads/update_all_state').to route_to(
-          controller: 'myads', action: 'update_all_state')
-      end
-    end
+    # describe 'collection' do
+    # end
 
     it '#index' do
       expect(get: '/myads').to route_to(
