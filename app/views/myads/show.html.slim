@@ -5,25 +5,24 @@ p
     = @myad.state_name.capitalize
 
 p
-  = @myad.description
+  = @myad.description.html_safe
 
 p
   - if can? :destroy, @myad
     = link_to 'Delete',@myad,data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-danger"
 p
-  - state_bool(@myad.state_paths.events).each do |state|
-    - next unless @myad.send(state.last)
-    - if can? :event, @myad
-	    = link_to state.first.capitalize, event_myad_path(@myad,event:state.first), class:"btn btn-#{label_event(state.first)}"
+  - @myad.state_events.each do |state|
+    - if can? state, @myad
+      = link_to_state state, @myad, class:"btn btn-#{label_event(state)}"
 
 hr
 - if can? :edit, @myad
   = link_to 'Edit', edit_myad_path(@myad)
-  |  | 
+  |  |
 = link_alternative('Back', myads_path(params), :back, params[:event]) { |event| event }
 hr
 
-- unless @myad.images.size.zero? 
+- unless @myad.images.size.zero?
   .row
     - @myad.images.each do |image|
       .col-xs-6.col-md-3

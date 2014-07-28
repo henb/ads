@@ -6,19 +6,18 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
+gem 'jquery-turbolinks'
 
 gem 'slim-rails'
 gem 'simple_form'
 gem 'devise'
 
 gem 'bootstrap-sass', '~> 3.1.1'
-
+gem 'bootstrap-wysihtml5-rails'
 gem 'state_machine'
 gem 'enumerize'
 gem 'whenever'
-gem 'cancan'
+gem 'cancancan'
 gem 'will_paginate'
 gem 'faker'
 gem 'ransack'
@@ -31,17 +30,23 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development,:test do
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
+gem 'pg'
+gem 'rails_12factor'
 
 group :test do
   gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
+  gem 'capybara'
 end
 
+group :development, :test do
+  gem "spring-commands-rspec"
+  gem 'guard-rspec', require: false
+end
+
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end

@@ -5,9 +5,9 @@ td = link_to(truncate(myad.typead.name,length:30), typead_path(myad.typead),clas
 td
   = render partial:"myads/ad_item/state_ad", locals:{ad: myad}
 td
-  - if can? :event, myad
+  - if can_event? myad
     = render partial:"myads/ad_item/state_action", locals:{ad: myad}
   = render partial:"myads/ad_item/standart_action", locals:{ad: myad}
-td 
+td
   =  time_ago_in_words(myad.updated_at)
   |  ago
